@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -17,6 +18,11 @@ export default function Login() {
     return vEmail || vPassword;
   };
 
+  const validadeEmail = async () => {
+    const vEmail = await axios.post('http://localhost:3001/login', { email, password });
+    console.log(vEmail);
+  };
+
   return (
     <div>
       <input
@@ -33,6 +39,7 @@ export default function Login() {
       />
       <button
         disabled={ enableButton() }
+        onClick={ validadeEmail }
         type="button"
         data-testid="common_login__button-login"
       >
