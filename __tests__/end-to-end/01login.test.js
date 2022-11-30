@@ -26,7 +26,7 @@ beforeEach(async () => {
   await expect(page).toCompareURL(`${host}/login`);
 });
 
-describe(requirement(1), () => {
+describe.skip(requirement(1), () => {
   test("O avaliador navegará para o endereço do host utilizando o endpoint '/'", async () => {
     await expect(page).toNavigate(`${host}/`);
     await expect(page).toCompareURL(`${host}/login`);
@@ -46,7 +46,7 @@ describe(requirement(2), () => {
   });
 });
 
-describe(requirement(3), () => {
+describe.skip(requirement(3), () => {
   const logins = [
     {
       email: "cliente@email",
@@ -105,7 +105,7 @@ describe(requirement(3), () => {
   });
 });
 
-describe(requirement(4), () => {
+describe.skip(requirement(4), () => {
   const login = {
     email: internet.email().toLowerCase(),
     password: internet.password(passwordMinLen),
@@ -131,7 +131,7 @@ describe(requirement(4), () => {
   });
 });
 
-describe(requirement(5), () => {
+describe.skip(requirement(5), () => {
   test("O avaliador tentará fazer a ação de login com dados válidos, esse teste pressupõe a validade dos anteriores", async () => {
     expect(
       await action.common.navigate.login.default(page, "customer")
