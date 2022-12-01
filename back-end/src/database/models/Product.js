@@ -1,41 +1,35 @@
-import {STRING, INTEGER, MODEL, DataTypes } from 'sequelize';
-import db from '.';
-
-/**
- *
- * @param {import('sequelize').Sequelize} sequelize
- * @param {import('sequelize').DataTypes} DataTypes
- * @returns
- */
-
-const productSchema=(Sequelize, DataTypes) => {
-  const productTable = Sequelize.define('Product', {
+/* eslint-disable camelcase */
+/* eslint-disable max-lines-per-function */
+module.exports = (Sequelize, DataTypes) => {
+  const Product = Sequelize.define('Product', {
     id: {
-      primaryKey: true,
       type: DataTypes.INTEGER,
       allowNull: false,
-      autoIncrement: true,  
+      autoIncrement: true,
+      primaryKey: true,
     },
     name: {
       type: DataTypes.STRING,
-      allowNull: false,
     },
-    price: {
-      type: DataTypes.DECIMAL,
-      allowNull: false,
-    },
-    url_image: {
+    email: {
       type: DataTypes.STRING,
-      allowNull: false,
-    }
-  },
-    {
-      timestamps: false,
-      tableName: 'products',
-      underscored: true,
-    });
-    return productTable;
-}
+      unique: true,
+    },
+    password: {
+      type: DataTypes.STRING,
+    },
+    role: {
+      type: DataTypes.STRING,
+    },
+  }, {
+    tableName: 'products',
+    timestamps: false,
+    underscored: true,
+  });
 
-module.exports = productSchema;
+  Product.associate = (models) => {
+    Product.hasMany(models.SaleProduct, { foreignKey: 'product_id', as: 'product' });
+  };
 
+  return Product;
+};
