@@ -59,6 +59,7 @@ export default function Login() {
       <button
         type="button"
         data-testid="common_login__button-register"
+        onClick={ () => history.push('/register') }
       >
         Register
       </button>
