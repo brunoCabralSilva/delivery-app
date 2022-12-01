@@ -3,7 +3,7 @@ services:
   frontend:
     build: ./front-end
     ports:
-      - 3000:3000
+      - 3030:3000
     working_dir: /app-frontend
     command: npm run dev
     volumes:
@@ -21,7 +21,7 @@ services:
     container_name: app_backend
     build: ./back-end
     ports:
-      - 3001:3001
+      - 3002:3001
     working_dir: /app-backend
     command: npm run dev
     volumes:
