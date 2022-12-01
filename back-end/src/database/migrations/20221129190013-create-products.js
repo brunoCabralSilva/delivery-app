@@ -1,5 +1,3 @@
-'use strict';
-
 module.exports = {
 
    /**
@@ -8,11 +6,10 @@ module.exports = {
    * @param {import('sequelize')} Sequelize 
    * @returns 
    */
-  async up (queryInterface, Sequelize) {
+  async up(queryInterface, Sequelize) {
     await queryInterface.createTable('products', {
-      id: {
-        primaryKey: true,
-        type: Sequelize.INTEGER,
+      id: { primaryKey: true,
+type: Sequelize.INTEGER,
         allowNull: false,
         autoIncrement: true,  
       },
@@ -21,17 +18,16 @@ module.exports = {
         allowNull: false,
       },
       price: {
-        type: Sequelize.DECIMAL(4,2),
+        type: Sequelize.DECIMAL(4, 2),
         allowNull: false,
       },
-      url_image: {
+      urlImage: {
         type: Sequelize.STRING(200),
         allowNull: false,
-      },
-    })
-  },
+      } }); 
+},
 
-  async down (queryInterface) {
+  async down(queryInterface) {
     await queryInterface.dropTable('products');
-   }
+   },
 };
