@@ -24,7 +24,6 @@ export default function Login() {
   const validadeEmail = async () => {
     try {
       const vEmail = await axios.post('http://localhost:3001/login', { email, password });
-      console.log(vEmail);
       setValidation(false);
       if (vEmail.status === VALID_STATUS) {
         history.push('/customer/products');
