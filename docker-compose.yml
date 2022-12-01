@@ -32,16 +32,14 @@ services:
     environment:
       - APP_PORT=3001
       - JWT_SECRET=GRUPO-9-É-DEMAIS
-      # Os dados abaixo se referem ao container `db`
-      # Dica: Relembre aqui da comunicação interna entre containers
-      - NODE_ENV=development
-      - API_PORT=3001
-      - MYSQL_HOST=db
-      - MYSQL_PORT=3306
-      - MYSQL_USER=root
-      - MYSQL_PASSWORD=root
-      - MYSQL_DB_NAME=delivery-app
-      - EVAL_ALWAYS_RESTORE_DEV_DB=true
+       -NODE_ENV=development
+       -API_PORT=3001
+       -MYSQL_HOST=localhost
+       -MYSQL_PORT=3307
+       -MYSQL_USER=root
+       -MYSQL_PASSWORD=root
+       -MYSQL_DB_NAME=delivery-app
+       -EVAL_ALWAYS_RESTORE_DEV_DB=true
     healthcheck:
       test: ["CMD", "lsof", "-t", "-i:3001"] # Caso utilize outra porta interna para o back, altere ela aqui também
       timeout: 10s

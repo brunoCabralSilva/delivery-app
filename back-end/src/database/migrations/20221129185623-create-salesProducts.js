@@ -1,13 +1,11 @@
-'use strict';
-
 module.exports = {
-  async up (queryInterface, Sequelize) {
+  async up(queryInterface, Sequelize) {
     await queryInterface.createTable('salesProducts', {
-      sale_id: {
+      saleId: {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      product_id: {
+      productId: {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
@@ -15,10 +13,10 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-    })
+    });
   },
 
-  async down (queryInterface) {
+  async down(queryInterface) {
     await queryInterface.dropTable('salesProducts');
-   }
+   },
 };
