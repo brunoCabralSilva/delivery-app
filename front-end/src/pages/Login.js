@@ -1,10 +1,13 @@
 import { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [validation, setValidation] = useState(false);
+  const VALID_STATUS = 200;
+  const history = useHistory();
 
   useEffect(() => {
     setValidation(false);
@@ -19,8 +22,16 @@ export default function Login() {
   };
 
   const validadeEmail = async () => {
-    const vEmail = await axios.post('http://localhost:3001/login', { email, password });
-    console.log(vEmail);
+    try {
+      const vEmail = await axios.post('http://localhost:3001/login', { email, password });
+      setValidation(false);
+      if (vEmail.status === VALID_STATUS) {
+        history.push('/customer/products');
+      }
+    } catch (error) {
+      console.log(error.message);
+      setValidation(true);
+    }
   };
 
   return (
