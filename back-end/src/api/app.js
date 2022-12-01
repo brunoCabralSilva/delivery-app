@@ -16,5 +16,4 @@ app.use('/register', register);
 
 app.use('/customer/products', product);
 
-
 module.exports = app;
