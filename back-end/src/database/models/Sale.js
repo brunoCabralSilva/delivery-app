@@ -1,28 +1,28 @@
-import {STRING, INTEGER, MODEL, DataTypes } from 'sequelize';
-import db from '.';
-
-/**
- *
- * @param {import('sequelize').Sequelize} sequelize
- * @param {import('sequelize').DataTypes} DataTypes
- * @returns
- */
-
-const saleSchema=(Sequelize, DataTypes) => {
-  const Sales = Sequelize.define('Sales', {
+/* eslint-disable camelcase */
+/* eslint-disable max-lines-per-function */
+module.exports = (Sequelize, DataTypes) => {
+  const Sale = Sequelize.define('Sale', {
     id: {
-      primaryKey: true,
       type: DataTypes.INTEGER,
       allowNull: false,
-      autoIncrement: true,  
+      autoIncrement: true,
+      primaryKey: true,
     },
     user_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      references: {
+        model: 'users',
+        key: 'id',
+      },
     },
     seller_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      references: {
+        model: 'users',
+        key: 'id',
+      },
     },
     total_price: {
       type: DataTypes.DECIMAL(9, 2),
@@ -43,19 +43,19 @@ const saleSchema=(Sequelize, DataTypes) => {
     status: {
       type: DataTypes.STRING(50),
       allowNull: false,
-    }},
-    {
-      timestamps: false,
-      tableName: 'sales',
-      underscored: true,
-    });
+    },
+  }, {
+    tableName: 'sales',
+    timestamps: false,
+    underscored: true,
+  });
 
-    Sales.associate = (models) => { Sales.belongsTo(
-      models.User, 
-      { foreignKey: "user_id", as: "users" },
-      { foreignKey: "seller_id", as: "sellers" }); 
-    return Sales;
-}
-}
+  Sale.associate = (models) => {
+    Sale.belongsTo(models.User, { foreignKey: 'user_id', as: 'users' });
+    Sale.belongsTo(models.User, { foreignKey: 'seller_id', as: 'sellers' });
 
-module.exports = saleSchema;
+    Sale.hasMany(models.SaleProduct, { foreignKey: 'salesProducts', as: 'saleProducts' });
+  };
+
+  return Sale;
+};

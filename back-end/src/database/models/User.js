@@ -1,65 +1,36 @@
-import {STRING, INTEGER, MODEL, DataTypes } from 'sequelize';
-import db from '.';
-
-/**
- *
- * @param {import('sequelize').Sequelize} sequelize
- * @param {import('sequelize').DataTypes} DataTypes
- * @returns
- */
-
-const userSchema=(Sequelize, DataTypes) => {
+/* eslint-disable camelcase */
+/* eslint-disable max-lines-per-function */
+module.exports = (Sequelize, DataTypes) => {
   const User = Sequelize.define('User', {
     id: {
-      primaryKey: true,
       type: DataTypes.INTEGER,
       allowNull: false,
-      autoIncrement: true,  
+      autoIncrement: true,
+      primaryKey: true,
     },
     name: {
       type: DataTypes.STRING,
-      allowNull: false,
     },
     email: {
       type: DataTypes.STRING,
-      allowNull: false,
+      unique: true,
     },
     password: {
       type: DataTypes.STRING,
-      allowNull: false,
     },
     role: {
       type: DataTypes.STRING,
-      allowNull: false,
-    }},
-    {
-      timestamps: false,
-      tableName: 'users',
-    });
-    User.associate = (models) => {
-      User.hasMany(models.Sales,
-        { foreignKey: 'user_id', as: 'users'},
-        { foreignKey: 'seller_id', as: 'sellers'},
-        );
-    }
+    },
+  }, {
+    tableName: 'users',
+    timestamps: false,
+    underscored: true,
+  });
 
-    return User;
-}
+  User.associate = (models) => {
+    User.hasMany(models.Sale, { foreignKey: 'user_id', as: 'user' });
+    User.hasMany(models.Sale, { foreignKey: 'seller_id', as: 'seller' });
+  };
 
-module.exports = userSchema;
-
-
-// {
-//   "authorId": 2,
-//   "name": "Rachel de Queiroz",
-//   "books": [
-//   {
-//   "title": "O Quinze",
-//   "releaseYear": 1930
-//   },
-//   {
-//   "title": "As três marias",
-//   "releaseYear": 1939
-//   }
-//   ]
-//   } 
+  return User;
+};

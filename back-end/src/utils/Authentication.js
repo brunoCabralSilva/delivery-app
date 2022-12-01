@@ -1,21 +1,21 @@
-import jwt from 'jsonwebtoken';
-import dotenv from 'dotenv';
-
-dotenv.config();
+const jwt = require('jsonwebtoken');
 
 const tokenSecret = process.env.JWT_SECRET || 'GRUPO-9-É-DEMAIS';
+require('dotenv').config();
 
-export function validation(token) {
-  try {
-    jwt.verify(token, tokenSecret);
-    return true;
-  } catch (error) {
-    return false;
+module.exports = class JwtAuth {
+  static validation(token) {
+    try {
+      jwt.verify(token, tokenSecret);
+      return true;
+    } catch (error) {
+      return false;
+    }
   }
-}
 
-export function generate(data) {
-  const jwtConfig = { expiresIn: '10min', algorithm: 'HS256' };
-  const token = jwt.sign(...data, tokenSecret, jwtConfig);
-  return token;
-}
+  static generate(data) {
+    const jwtConfig = { expiresIn: '15d', algorithm: 'HS256' };
+    const token = jwt.sign(data.toJSON(), tokenSecret, jwtConfig);
+    return token;
+  }
+};

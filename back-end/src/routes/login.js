@@ -1,5 +1,16 @@
-const { router } = require('express');
+const { Router } = require('express');
+const loginController = require('../controller/loginController');
+const LoginMiddlewares = require('../middlewares/loginMiddleware');
 
-router.get('/');
+const router = Router();
+
+// router.post('/', loginMiddle.validateEmail, loginMiddleware.validatePassword, loginController);
+
+router.post(
+  '/',
+  LoginMiddlewares.validateEmail,
+  LoginMiddlewares.validatePassword,
+  loginController,
+);
 
 module.exports = router;

@@ -6,10 +6,10 @@ import Login from './pages/Login';
 function App() {
   return (
     <Switch>
-      <Route exact path='/'>
+      <Route exact path="/">
         <Redirect to="/login" />
       </Route>
-      <Route exact path='/login' component={Login} />
+      <Route exact path="/login" component={ Login } />
     </Switch>
   );
 }
