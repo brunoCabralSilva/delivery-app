@@ -29,7 +29,7 @@ beforeEach(async () => {
   });
 });
 
-describe(requirement(11), () => {
+describe.only(requirement(11), () => {
   test("O avaliador testará a existência dos data-testids referentes ao navbar", async () => {
     await expect(page).toFindElement(
       customerProductsPage.element.navbar.links.products
