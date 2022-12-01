@@ -11,6 +11,3 @@ app.use(express.json());
 app.use('/login', login);
 
 module.exports = app;
-// commit
-
-
