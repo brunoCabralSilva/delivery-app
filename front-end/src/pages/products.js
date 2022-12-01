@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+
 const VALID_STATUS = 200;
 
 export default function Products() {
@@ -51,7 +52,7 @@ export default function Products() {
               <img
                 data-testid={ `customer_products__img-card-bg-image-${index + 1}` }
                 src={ list.url_image }
-                alt={`Imagem do produto ${index+1}`}
+                alt={ `Imagem do produto ${index + 1}` }
               />
             </div>
           ))
