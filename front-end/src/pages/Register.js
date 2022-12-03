@@ -25,6 +25,13 @@ export default function Register() {
         onChange={ (e) => setPassword(e.target.value) }
         data-testid="common_register__input-password"
       />
+      <button
+        onClick={ () => console.log('Deu') }
+        type="button"
+        data-testid="common_register__button-register"
+      >
+        Login
+      </button>
       <div data-testid="common_register__element-invalid_register" />
     </div>
   );
