@@ -7,6 +7,24 @@ const exists = async (name, email) => {
   return !!vEmail || !!vUser;
 };
 
+const validationName = (name) => {
+    const number = 6;
+    const vName = !name || name === '' || name.length < 2 * number;
+    return vName;
+};
+
+const validationEmail = (email) => {
+    const validateEmail = /\S+@\S+\.\S+/;
+    const vEmail = !email || !validateEmail.test(email) || email === '';
+    return vEmail;
+};
+
+const validationPassword = (password) => {
+    const number = 6;
+    const vPassword = !password || password.length < number;
+    return vPassword;
+};
+
 const registerUser = async (name, email, password) => {
   const encryptedPass = md5(password);
   const user = await User.create({ 
@@ -15,7 +33,7 @@ const registerUser = async (name, email, password) => {
     password: encryptedPass,
     role: 'customer',
    });
-   return !!user;
+  return !!user;
 };
 
 const getUser = async (email) => {
@@ -24,4 +42,11 @@ const getUser = async (email) => {
   return { id, name, email, role };
 };
 
-module.exports = { exists, registerUser, getUser };
+module.exports = { 
+  exists,
+  registerUser,
+  getUser,
+  validationName,
+  validationEmail,
+  validationPassword,
+};
