@@ -7,7 +7,7 @@ const loginController = async (req, res) => {
   if (!user) {
     return res.status(404).send('Not found');
   }
-  return res.status(200).json({ user });
+  return res.status(200).json(user);
 };
 
 module.exports = loginController;

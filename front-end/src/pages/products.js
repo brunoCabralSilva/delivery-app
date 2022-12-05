@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
 const VALID_STATUS = 200;
@@ -6,8 +7,12 @@ const NUMBER = 1;
 
 export default function Products() {
   const [listProducts, setListProducts] = useState([]);
+  const [storage, setStorage] = useState({});
+  const history = useHistory();
 
   useEffect(() => {
+    setStorage(JSON.parse(localStorage.getItem('user')));
+
     const returnAllItems = async () => {
       try {
         const data = await axios.get('http://localhost:3001/customer/products');
@@ -40,6 +45,11 @@ export default function Products() {
     return newList;
   };
 
+  const logout = () => {
+    localStorage.clear();
+    history.push('/login');
+  };
+
   const addQuant = (index) => {
     const filterOff = listProducts.filter((fil, i) => index !== i);
     const filter = listProducts.filter((fil, i) => index === i);
@@ -69,11 +79,27 @@ export default function Products() {
           Pedidos
         </div>
         <div data-testid="customer_products__element-navbar-user-full-name">
-          Nome
+          { Object.keys(storage).length > 0 && storage.name }
         </div>
-        <div data-testid="customer_products__element-navbar-link-logout">
+        <button
+          type="button"
+          onClick={ () => history.push('/customer/checkout') }
+          data-testid="customer_products__button-cart"
+        >
+          Carrinho de Compras
+        </button>
+        <div
+          data-testid="customer_products__checkout-bottom-value"
+        >
+          Valor
+        </div>
+        <button
+          type="button"
+          onClick={ logout }
+          data-testid="customer_products__element-navbar-link-logout"
+        >
           Logout
-        </div>
+        </button>
       </header>
       <section>
         {
