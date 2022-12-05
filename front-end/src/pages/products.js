@@ -8,6 +8,7 @@ const NUMBER = 1;
 export default function Products() {
   const [listProducts, setListProducts] = useState([]);
   const [storage, setStorage] = useState({});
+  const [valuePrice, setValuePrice] = useState(0);
   const history = useHistory();
 
   useEffect(() => {
@@ -55,15 +56,43 @@ export default function Products() {
     const filter = listProducts.filter((fil, i) => index === i);
     filter[0].quant += 1;
     const newList = sortItems(filterOff, filter);
+    let valueTotal = 0;
+    for (let i = 0; i < newList.length - 1; i += 1) {
+      valueTotal += Number(newList[i].price) * Number(newList[i].quant);
+    }
+    setValuePrice(valueTotal);
     setListProducts(newList);
+  };
+
+  const insertQuant = (index, value) => {
+    const filterOff = listProducts.filter((fil, i) => index !== i);
+    const filter = listProducts.filter((fil, i) => index === i);
+    let valueTotal = 0;
+    for (let i = 0; i < filterOff.length - 1; i += 1) {
+      valueTotal += filterOff[i].price * filterOff[i].quant;
+    }
+    filter[0].quant = Number(value);
+    console.log(filter[0].quant);
+    const newList = sortItems(filterOff, filter);
+    setListProducts(newList);
+    setValuePrice((Number(filter[0].price) * Number(value)) + valueTotal);
   };
 
   const remQuant = (index) => {
     const filterOff = listProducts.filter((fil, i) => index !== i);
     const filter = listProducts.filter((fil, i) => index === i);
-    filter[0].quant -= 1;
-    if (filter[0].quant < 1) {
+    console.log(filter[0].price);
+    if (filter[0].quant === 0) {
       filter[0].quant = 0;
+      setValuePrice(0);
+    } else {
+      filter[0].quant -= 1;
+      setValuePrice(0);
+      if ((Number(valuePrice) - Number(filter[0].price)) < 0) {
+        setValuePrice(0);
+      } else {
+        setValuePrice(Number(valuePrice) - Number(filter[0].price));
+      }
     }
     const newList = sortItems(filterOff, filter);
     setListProducts(newList);
@@ -91,7 +120,7 @@ export default function Products() {
         <div
           data-testid="customer_products__checkout-bottom-value"
         >
-          Valor
+          { valuePrice.toFixed(2).toString().replace('.', ',') }
         </div>
         <button
           type="button"
@@ -109,7 +138,7 @@ export default function Products() {
                 { list.name }
               </p>
               <p data-testid={ `customer_products__element-card-price-${list.id}` }>
-                { list.price }
+                { list.price.replace('.', ',') }
               </p>
               <img
                 data-testid={ `customer_products__img-card-bg-image-${list.id}` }
@@ -127,6 +156,7 @@ export default function Products() {
                 type="text"
                 data-testid={ `customer_products__input-card-quantity-${list.id}` }
                 value={ listProducts[index].quant }
+                onChange={ (e) => insertQuant(index, e.target.value) }
               />
               <button
                 data-testid={ `customer_products__button-card-add-item-${list.id}` }
