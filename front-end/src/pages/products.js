@@ -62,6 +62,7 @@ export default function Products() {
     }
     setValuePrice(valueTotal);
     setListProducts(newList);
+    localStorage.setItem('car-shop', JSON.stringify(listProducts));
   };
 
   const insertQuant = (index, value) => {
@@ -76,6 +77,7 @@ export default function Products() {
     }
     setValuePrice(valueTotal);
     setListProducts(newList);
+    localStorage.setItem('car-shop', JSON.stringify(listProducts));
   };
 
   const remQuant = (index) => {
@@ -95,6 +97,7 @@ export default function Products() {
     }
     setValuePrice(valueTotal);
     setListProducts(newList);
+    localStorage.setItem('car-shop', JSON.stringify(listProducts));
   };
 
   return (

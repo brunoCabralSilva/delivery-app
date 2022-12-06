@@ -23,7 +23,8 @@ type: Sequelize.INTEGER,
       },
       url_image: {
         type: Sequelize.STRING(200),
-        allowNull: false,
+        // allowNull: false,
+        field: 'url_image',
       } }); 
 },
 

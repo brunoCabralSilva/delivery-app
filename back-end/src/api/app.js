@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const login = require('../routes/login');
+const register = require('../routes/register');
 const product = require('../routes/product');
 
 const app = express();
@@ -12,6 +13,9 @@ app.use(express.json());
 app.use(express.static('public'));
 
 app.use('/login', login);
+
+app.use('/register', register);
+
 app.use('/customer', product);
 
 module.exports = app;

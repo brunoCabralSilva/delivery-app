@@ -30,7 +30,7 @@ beforeEach(async () => {
   ).toBeTruthy();
 });
 
-describe(requirement(17), () => {
+describe.only(requirement(17), () => {
   test("O avaliador testará os data-testids referentes aos itens do carrinho e demais elementos", async () => {
     for (let i = zero; i < itemList.cart.length; i += one) {
       await expect(page).toFindElement(
