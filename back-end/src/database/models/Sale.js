@@ -8,7 +8,7 @@ module.exports = (Sequelize, DataTypes) => {
       autoIncrement: true,
       primaryKey: true,
     },
-    user_id: {
+    userId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
@@ -16,7 +16,7 @@ module.exports = (Sequelize, DataTypes) => {
         key: 'id',
       },
     },
-    seller_id: {
+    sellerId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
@@ -24,25 +24,24 @@ module.exports = (Sequelize, DataTypes) => {
         key: 'id',
       },
     },
-    total_price: {
+    totalPrice: {
       type: DataTypes.DECIMAL(9, 2),
       allowNull: false,
     },
-    delivery_address: {
+    deliveryAddress: {
       type: DataTypes.STRING(100),
       allowNull: false,
     },
-    delivery_number: {
+    deliveryNumber: {
       type: DataTypes.STRING(50),
       allowNull: false,
     },
-    sale_date: {
+    saleDate: {
       type: DataTypes.DATE,
       allowNull: false,
     },
     status: {
       type: DataTypes.STRING(50),
-      allowNull: false,
     },
   }, {
     tableName: 'sales',
