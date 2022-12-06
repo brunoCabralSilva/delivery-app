@@ -27,6 +27,7 @@ export default function Login() {
       setValidation(false);
       if (vEmail.status === VALID_STATUS) {
         history.push('/customer/products');
+        localStorage.setItem('user', JSON.stringify(vEmail.data));
       }
     } catch (error) {
       console.log(error.message);

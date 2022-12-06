@@ -10,10 +10,14 @@ app.use(cors());
 
 app.use(express.json());
 
+app.use(express.static('public'));
+
 app.use('/login', login);
 
 app.use('/register', register);
 
-app.use('/customer/products', product);
+app.use('/customer', product);
+
+app.use('/customer', product);
 
 module.exports = app;

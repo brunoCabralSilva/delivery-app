@@ -21,7 +21,7 @@ type: Sequelize.INTEGER,
         type: Sequelize.DECIMAL(4, 2),
         allowNull: false,
       },
-      urlImage: {
+      url_image: {
         type: Sequelize.STRING(200),
         // allowNull: false,
         field: 'url_image',
