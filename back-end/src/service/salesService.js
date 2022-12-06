@@ -5,19 +5,20 @@ const create = async (body) => {
     userId, sellerId, totalPrice, deliveryAddress,
     deliveryNumber, saleDate, status,
   } = body;
-  const sale = {
-    userId,
-sellerId,
-totalPrice,
-deliveryAddress,
-    deliveryNumber,
-saleDate,
-status,
-  };
-  console.log(deliveryAddress);
+  if (!status) {
   const sales = await Sale
-  .create(sale);
+  .create({ userId,
+    sellerId,
+    totalPrice,
+    deliveryAddress,
+    deliveryNumber,
+    saleDate,
+    status: 'Pendente',
+  });
   return sales;
+}
+const sales = await Sale.create(body);
+return sales; 
 };
 
 const findId = async (sellerId) => {

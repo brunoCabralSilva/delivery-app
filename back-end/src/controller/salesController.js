@@ -4,7 +4,6 @@ require('dotenv').config();
 
 const createSales = async (req, res) => {
   const sales = await salesService.create(req.body);
-  console.log(req.headers.authorization);
   if (JwtAuth.validation(req.headers.authorization)) {
   try {
     if (!sales) {
@@ -12,10 +11,10 @@ const createSales = async (req, res) => {
     }
     return res.status(201).send('Created');
   } catch (error) {
-    return res.status(500).json({ message: 'deu ruim' });
+    return res.status(500).json({ message: 'Intern error' });
   }
 }
-return res.status(500).json({ message: 'deu ruim 2' });
+return res.status(500).json({ message: 'Token not found' });
 };
 
 const findIdSales = async (req, res) => {
@@ -26,7 +25,7 @@ const findIdSales = async (req, res) => {
     }
     return res.status(200).json(sale);
   } catch (error) {
-    res.status(500).json({ message: 'deu ruim' });
+    res.status(500).json({ message: 'Intern error' });
   }
 };
 
