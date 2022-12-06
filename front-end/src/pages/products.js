@@ -57,7 +57,7 @@ export default function Products() {
     filter[0].quant += 1;
     const newList = sortItems(filterOff, filter);
     let valueTotal = 0;
-    for (let i = 0; i < newList.length - 1; i += 1) {
+    for (let i = 0; i < newList.length; i += 1) {
       valueTotal += Number(newList[i].price) * Number(newList[i].quant);
     }
     setValuePrice(valueTotal);
@@ -67,34 +67,33 @@ export default function Products() {
   const insertQuant = (index, value) => {
     const filterOff = listProducts.filter((fil, i) => index !== i);
     const filter = listProducts.filter((fil, i) => index === i);
-    let valueTotal = 0;
-    for (let i = 0; i < filterOff.length - 1; i += 1) {
-      valueTotal += filterOff[i].price * filterOff[i].quant;
-    }
     filter[0].quant = Number(value);
-    console.log(filter[0].quant);
     const newList = sortItems(filterOff, filter);
+    let valueTotal = 0;
+    for (let i = 0; i < newList.length; i += 1) {
+      console.log(i);
+      valueTotal += newList[i].price * newList[i].quant;
+    }
+    setValuePrice(valueTotal);
     setListProducts(newList);
-    setValuePrice((Number(filter[0].price) * Number(value)) + valueTotal);
   };
 
   const remQuant = (index) => {
     const filterOff = listProducts.filter((fil, i) => index !== i);
     const filter = listProducts.filter((fil, i) => index === i);
-    console.log(filter[0].price);
     if (filter[0].quant === 0) {
       filter[0].quant = 0;
       setValuePrice(0);
     } else {
       filter[0].quant -= 1;
       setValuePrice(0);
-      if ((Number(valuePrice) - Number(filter[0].price)) < 0) {
-        setValuePrice(0);
-      } else {
-        setValuePrice(Number(valuePrice) - Number(filter[0].price));
-      }
     }
     const newList = sortItems(filterOff, filter);
+    let valueTotal = 0;
+    for (let i = 0; i < newList.length; i += 1) {
+      valueTotal += Number(newList[i].price) * Number(newList[i].quant);
+    }
+    setValuePrice(valueTotal);
     setListProducts(newList);
   };
 
@@ -114,8 +113,9 @@ export default function Products() {
           type="button"
           onClick={ () => history.push('/customer/checkout') }
           data-testid="customer_products__button-cart"
+          disabled={ !valuePrice }
         >
-          Carrinho de Compras
+          { valuePrice.toFixed(2).toString().replace('.', ',') }
         </button>
         <div
           data-testid="customer_products__checkout-bottom-value"
