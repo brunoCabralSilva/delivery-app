@@ -56,7 +56,7 @@ export default function Checkout() {
         list: listProducts,
       }, { headers: { authorization: user.token,
       } });
-      history.push(`/orders/${register.data.id}`);
+      history.push(`/customer/orders/${register.data.id}`);
     } catch (error) {
       console.log(error.message);
     }
