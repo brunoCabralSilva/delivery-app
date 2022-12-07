@@ -1,5 +1,6 @@
 import { useState } from 'react';
-// import { useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import axios from 'axios';
 
 export default function Register() {
   const [name, setName] = useState('');
@@ -10,6 +11,7 @@ export default function Register() {
   const CREATED_STATUS = 201;
   const BAD_STATUS = 400;
   const INVALID_STATUS = 409;
+  const history = useHistory();
 
   const enableButton = () => {
     const number = 6;
@@ -26,6 +28,8 @@ export default function Register() {
       const vUser = await axios.post('http://localhost:3001/register', { name, email, password });
       if (vUser.status === CREATED_STATUS) {
         setValidation(true);
+        history.push('/customer/products');
+        localStorage.setItem('user', JSON.stringify(vUser.data));
       }
       if (vUser.status === BAD_STATUS || vUser.status === INVALID_STATUS) {
         setValidation(false);
@@ -65,10 +69,10 @@ export default function Register() {
         Cadastrar
       </button>
       {
-        (validation && isButtonClicked)
+        (!validation && isButtonClicked)
           ? (
             <p data-testid="common_register__element-invalid_register">
-              Usuário Inválido
+              Nome ou e-mail inválidos.
             </p>)
           : null
       }
