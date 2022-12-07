@@ -6,15 +6,12 @@ const createSales = async (req, res) => {
   const sales = await salesService.create(req.body);
   if (JwtAuth.validation(req.headers.authorization)) {
   try {
-    if (!sales) {
-      return res.status(404).send('Not found');
-    }
-    return res.status(201).json(sales);
+    return res.status(201).json({ id: sales });
   } catch (error) {
-    return res.status(500).json({ message: 'Intern error' });
+    return res.status(404).json({ message: 'Intern error' });
   }
 }
-return res.status(500).json({ message: 'Token not found' });
+return res.status(400).json({ message: 'Token not found' });
 };
 
 const findIdSales = async (req, res) => {
