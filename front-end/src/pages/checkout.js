@@ -7,11 +7,11 @@ export default function Checkout() {
   const [numberAdress, setNumberAdress] = useState('');
   const [adress, setAdress] = useState('');
   const [seller, setSeller] = useState('');
+  const [userId, setUserId] = useState('');
   const [allSellers, setAllSellers] = useState([]);
   const [user, setUser] = useState({});
   const history = useHistory();
   const VALID_STATUS = 200;
-
   useEffect(() => {
     const list = JSON.parse(localStorage.getItem('car-shop'));
     const userStorage = JSON.parse(localStorage.getItem('user'));
@@ -21,17 +21,18 @@ export default function Checkout() {
     const returnSellers = async () => {
       try {
         const sellers = await axios.get('http://localhost:3001/user/sellers');
-        if (data.status === VALID_STATUS) {
-          setAllSellers(sellers);
+        const returnUserId = await axios.get(`http://localhost:3001/user/${userStorage.email}`);
+        if (sellers.status === VALID_STATUS) {
+          setAllSellers(sellers.data);
+          setSeller(sellers.data[0].id);
+          setUserId(returnUserId.data.id);
         }
       } catch (error) {
         console.log(error.message);
       }
     };
-
     returnSellers();
   }, []);
-
   const totalValor = () => {
     let valor = 0;
     listProducts.forEach((item) => {
@@ -39,24 +40,23 @@ export default function Checkout() {
     });
     return valor;
   };
-
   const removeItem = (index) => {
     const remove = listProducts.filter((item, i) => i !== index);
     setProducts(remove);
     localStorage.setItem('car-shop', JSON.stringify(remove));
   };
-
   const registerSale = async () => {
     try {
       const register = await axios.post('http://localhost:3001/customer/order', {
-        userId: user.id,
-        sellerId: seller.id,
+        userId,
+        sellerId: seller,
         totalPrice: totalValor().toFixed(2),
         deliveryAddress: adress,
         deliveryNumber: numberAdress,
         list: listProducts,
-      });
-      history.push(`/orders/${register.data.dataValues.id}`);
+      }, { headers: { authorization: user.token,
+      } });
+      history.push(`/orders/${register.data.id}`);
     } catch (error) {
       console.log(error.message);
     }
