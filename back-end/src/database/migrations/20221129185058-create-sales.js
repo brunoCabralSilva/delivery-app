@@ -1,5 +1,4 @@
-'use strict';
-
+/* eslint-disable camelcase */ /* eslint-disable max-lines-per-function */ 
 module.exports = {
 
    /**
@@ -8,46 +7,57 @@ module.exports = {
    * @param {import('sequelize')} Sequelize 
    * @returns 
    */
-  async up (queryInterface, Sequelize) {
+  async up(queryInterface, Sequelize) {
     await queryInterface.createTable('sales', {
-      id: {
-        primaryKey: true,
+      id: { primaryKey: true,
         type: Sequelize.INTEGER,
         allowNull: false,
         autoIncrement: true,  
       },
-      user_id: {
+      userId: { 
         type: Sequelize.INTEGER,
         allowNull: false,
-      },
-      seller_id: {
+        field: 'user_id',
+        references: {
+        model: 'users',
+        key: 'id',
+      } },
+      sellerId: { 
         type: Sequelize.INTEGER,
-        allowNull: false,
-      },
-      total_price: {
+         allowNull: false,
+          field: 'seller_id',
+          references: {
+            model: 'users',
+            key: 'id',
+          } },
+      totalPrice: {
         type: Sequelize.DECIMAL(9, 2),
         allowNull: false,
+        field: 'total_price',
       },
-      delivery_address: {
+      deliveryAddress: {
         type: Sequelize.STRING(100),
         allowNull: false,
+        field: 'delivery_address',
       },
-      delivery_number: {
+      deliveryNumber: {
         type: Sequelize.STRING(50),
         allowNull: false,
+        field: 'delivery_number',
       },
-      sale_date: {
+      saleDate: {
         type: Sequelize.DATE,
         allowNull: false,
+        field: 'sale_date',
       },
       status: {
         type: Sequelize.STRING(50),
         allowNull: false,
       },
-    })
+    });
   },
 
-  async down (queryInterface) {
+  async down(queryInterface) {
     await queryInterface.dropTable('sales');
-   }
+   },
 };

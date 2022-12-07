@@ -9,7 +9,7 @@ const createSales = async (req, res) => {
     if (!sales) {
       return res.status(404).send('Not found');
     }
-    return res.status(201).send('Created');
+    return res.status(201).json(sales);
   } catch (error) {
     return res.status(500).json({ message: 'Intern error' });
   }
