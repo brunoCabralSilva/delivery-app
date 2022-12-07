@@ -3,6 +3,7 @@ const cors = require('cors');
 const login = require('../routes/login');
 const register = require('../routes/register');
 const customer = require('../routes/customer');
+const user = require('../routes/user');
 
 const app = express();
 
@@ -17,5 +18,7 @@ app.use('/login', login);
 app.use('/register', register);
 
 app.use('/customer', customer);
+
+app.use('/user', user);
 
 module.exports = app;
