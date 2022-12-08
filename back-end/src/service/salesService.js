@@ -43,7 +43,14 @@ const findId = async (sellerId) => {
   return products;
 };
 
+const userFindSales = async (userId) => {
+  const sales = await Sale.findAll({ where: { userId } });
+  if (!sales) throw new Error('Produto não existe');
+  return sales;
+};
+
 module.exports = {
   create,
   findId,
+  userFindSales,
 };
