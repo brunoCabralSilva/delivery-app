@@ -6,15 +6,12 @@ const createSales = async (req, res) => {
   const sales = await salesService.create(req.body);
   if (JwtAuth.validation(req.headers.authorization)) {
   try {
-    if (!sales) {
-      return res.status(404).send('Not found');
-    }
-    return res.status(201).send('Created');
+    return res.status(201).json({ id: sales });
   } catch (error) {
-    return res.status(500).json({ message: 'Intern error' });
+    return res.status(404).json({ message: 'Intern error' });
   }
 }
-return res.status(500).json({ message: 'Token not found' });
+return res.status(400).json({ message: 'Token not found' });
 };
 
 const findIdSales = async (req, res) => {
@@ -29,19 +26,20 @@ const findIdSales = async (req, res) => {
   }
 };
 
-const findSalesUser = async (req, res) => {
+const findUserSales = async (req, res) => {
+  const sale = await salesService.userFindSales(req.params.id);
   try {
-    const { userId } = req.body;
-    const sales = await salesService.findAll(userId);
-    return res.status(200).json(sales);    
+    if (!sale) {
+      return res.status(404).send('Not found');
+    }
+    return res.status(200).json(sale);
   } catch (error) {
-    console.log(error); 
-    res.status(500).json({ message: 'error' });   
+    res.status(400).json({ message: 'Intern0 error' });
   }
 };
 
 module.exports = {
   createSales,
   findIdSales,
-  findSalesUser,
+  findUserSales,
 };

@@ -25,7 +25,6 @@ export default function Products() {
             };
             return obj;
           });
-          console.log(valor);
           setListProducts(valor);
         }
       } catch (error) {
@@ -72,7 +71,6 @@ export default function Products() {
     const newList = sortItems(filterOff, filter);
     let valueTotal = 0;
     for (let i = 0; i < newList.length; i += 1) {
-      console.log(i);
       valueTotal += newList[i].price * newList[i].quant;
     }
     setValuePrice(valueTotal);
@@ -145,7 +143,7 @@ export default function Products() {
               </p>
               <img
                 data-testid={ `customer_products__img-card-bg-image-${list.id}` }
-                src={ list.url_image }
+                src={ list.urlImage }
                 alt={ `Imagem do produto ${list.id}` }
               />
               <button

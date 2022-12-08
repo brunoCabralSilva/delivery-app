@@ -3,7 +3,7 @@
 /* eslint-disable max-lines-per-function */
 module.exports = (Sequelize, DataTypes) => {
   const SaleProduct = Sequelize.define('SaleProduct', {
-    sale_id: {
+    saleId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
@@ -11,7 +11,7 @@ module.exports = (Sequelize, DataTypes) => {
         key: 'id',
       },
     },
-    product_id: {
+    productId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
@@ -24,7 +24,7 @@ module.exports = (Sequelize, DataTypes) => {
       allowNull: false,
     },
   }, {
-    tableName: 'salesProducts',
+    tableName: 'sales_products',
     timestamps: false,
     underscored: true,
   });
