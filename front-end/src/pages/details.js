@@ -10,8 +10,8 @@ export default function Details() {
 
   useEffect(() => {
     const returnSales = async () => {
-      const listProducts = await axios.get(`http://localhost:3001/sales/${id}`);
-      setData(listProducts);
+      const listProducts = await axios.get(`http://localhost:3001/sale/${id}`);
+      setData(listProducts.data);
     };
     returnSales();
   }, []);
@@ -23,23 +23,23 @@ export default function Details() {
         <div
           data-testid="customer_order_details__element-order-details-label-order-id"
         >
-          Pedido
+          { data.id }
         </div>
         <div
           data-testid="customer_order_details__element-order-details-label-seller-name"
         >
-          Vendedor
+          { data.sellerId }
         </div>
         <div
           data-testid="customer_order_details__element-order-details-label-order-date"
         >
-          Data
+          { data.saleDate }
         </div>
         <div
           data-testid={ 'customer_order_details__element-order'
           + '-details-label-delivery-status' }
         >
-          status
+          { data.status }
         </div>
         <button
           type="button"
@@ -47,12 +47,12 @@ export default function Details() {
         >
           Marcar como entregue
         </button>
-        <Table list={ data.list } />
+        { data.list && <Table list={ data.list } /> }
         <div
           data-testid={ 'customer_order_details__elemen'
           + 't-order-total-price' }
         >
-          Total Price
+          { data.totalPrice && data.totalPrice.replace('.', ',') }
         </div>
       </div>
     </div>
