@@ -20,5 +20,9 @@ router.get(
   '/order/:id',
   salesController.findIdSales,
 );
+router.get(
+  '/order',
+  salesController.findSalesUser,
+);
 
 module.exports = router;

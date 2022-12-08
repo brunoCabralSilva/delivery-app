@@ -34,7 +34,7 @@ const findUserSales = async (req, res) => {
     }
     return res.status(200).json(sale);
   } catch (error) {
-    res.status(500).json({ message: 'Intern0 error' });
+    res.status(400).json({ message: 'Intern0 error' });
   }
 };
 
