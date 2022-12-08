@@ -5,6 +5,4 @@ const getUser = async (email) => {
   return user;
 };
 
-module.exports = {
-  getUser,
-};
+module.exports = { getUser };
