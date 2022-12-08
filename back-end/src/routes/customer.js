@@ -22,7 +22,7 @@ router.get(
 );
 router.get(
   '/order',
-  salesController.findSalesUser,
+  salesController.findUserSales,
 );
 
 module.exports = router;
