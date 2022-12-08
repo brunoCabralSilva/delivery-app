@@ -3,7 +3,7 @@ const { Sale } = require('../database/models');
 const create = async (body) => {
   const {
     userId, sellerId, totalPrice, deliveryAddress,
-    deliveryNumber, saleDate, status,
+    deliveryNumber, status,
   } = body;
   if (!status) {
   const sales = await Sale
@@ -12,7 +12,7 @@ const create = async (body) => {
     totalPrice,
     deliveryAddress,
     deliveryNumber,
-    saleDate,
+    saleDate: Date.now(),
     status: 'Pendente',
   });
   return sales;
@@ -28,7 +28,14 @@ const findId = async (sellerId) => {
   return products;
 };
 
+const findAll = async (userId) => {
+  const sales = await Sale.findAll({ where: { userId,
+  } });
+  return sales;
+};
+
 module.exports = {
   create,
   findId,
+  findAll,
 };

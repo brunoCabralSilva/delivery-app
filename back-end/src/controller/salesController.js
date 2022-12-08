@@ -29,7 +29,19 @@ const findIdSales = async (req, res) => {
   }
 };
 
+const findSalesUser = async (req, res) => {
+  try {
+    const { userId } = req.body;
+    const sales = await salesService.findAll(userId);
+    return res.status(200).json(sales);    
+  } catch (error) {
+    console.log(error); 
+    res.status(500).json({ message: 'error' });   
+  }
+};
+
 module.exports = {
   createSales,
   findIdSales,
+  findSalesUser,
 };
