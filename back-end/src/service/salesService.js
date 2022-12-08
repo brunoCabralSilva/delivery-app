@@ -1,5 +1,4 @@
-const { Sale } = require('../database/models');
-const { SaleProduct } = require('../database/models');
+const { Sale, User, SaleProduct } = require('../database/models');
 
 const createSalesProducts = async (id, list) => {
   try {
@@ -49,8 +48,41 @@ const userFindSales = async (userId) => {
   return sales;
 };
 
+const findSaleById = async (id) => {
+  const products = await Sale.findOne({
+    include: [{ model: User,
+    as: 'user',
+    attributes: { exclude: ['password', 'id', 'email', 'role'] } },
+  ],
+    where: { id } });
+  if (!products) throw new Error('Venda inexistente');
+  return products; 
+};
+
+const findQuantity = async (saleId, productId) => {
+  const response = await SaleProduct.findOne({ where: { saleId, productId } });
+  if (!response) throw new Error('Não encontrado');
+  // console.log(response.dataValues.quantity);
+  return response.dataValues.quantity;
+};
+
+const findSaleProducts = async (saleId) => {
+  const saleProducts = await SaleProduct.findAll({ where: { saleId } });
+  // const returnArray = [];
+  if (!saleProducts) throw new Error('Produtos não encontrados');
+  // saleProducts.forEach((element) => returnArray.push(element.dataValues.productId));
+  const response = saleProducts.map((element) => ({
+      id: element.productId,
+      quantity: element.quantity,
+    }));
+  return response;
+};
+
 module.exports = {
   create,
   findId,
   userFindSales,
+  findSaleById,
+  findSaleProducts,
+  findQuantity,
 };

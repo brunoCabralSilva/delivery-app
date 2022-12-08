@@ -11,7 +11,17 @@ const findId = async (id) => {
   return products;
 };
 
+const findProductsArray = async (array) => {
+  const consultArray = [];
+  // console.log(array);
+  array.forEach((element) => consultArray.push(element.id));
+  const products = await Product.findAll({ where: { id: consultArray } });
+  if (!products) throw new Error('Produto não existe');
+  return products;
+};
+
 module.exports = {
   findAll,
   findId,
+  findProductsArray,
 };
