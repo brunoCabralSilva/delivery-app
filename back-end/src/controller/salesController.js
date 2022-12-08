@@ -26,7 +26,20 @@ const findIdSales = async (req, res) => {
   }
 };
 
+const findUserSales = async (req, res) => {
+  const sale = await salesService.userFindSales(req.params.id);
+  try {
+    if (!sale) {
+      return res.status(404).send('Not found');
+    }
+    return res.status(200).json(sale);
+  } catch (error) {
+    res.status(500).json({ message: 'Intern0 error' });
+  }
+};
+
 module.exports = {
   createSales,
   findIdSales,
+  findUserSales,
 };
