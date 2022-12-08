@@ -143,7 +143,7 @@ export default function Products() {
               </p>
               <img
                 data-testid={ `customer_products__img-card-bg-image-${list.id}` }
-                src={ list.url_image }
+                src={ list.urlImage }
                 alt={ `Imagem do produto ${list.id}` }
               />
               <button
