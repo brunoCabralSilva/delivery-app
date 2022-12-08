@@ -1,20 +1,20 @@
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import PropTypes from 'prop-types';
 
-export default function Orders({ id, status, saleDate, totalPrice }) {
-  const [products, setProducts] = useState([]);
-
+export default function Orders() {
   const [storage, setStorage] = useState({});
+  const [sales, setSales] = useState([]);
 
   useEffect(() => {
-    const list = JSON.parse(localStorage.getItem('car-shop'));
-    const filteredList = list.filter((item) => item.quant > 0);
-    setProducts(filteredList);
-  }, []);
-
-  useEffect(() => {
-    setStorage(JSON.parse(localStorage.getItem('user')));
+    const returnSales = async () => {
+      const list = JSON.parse(localStorage.getItem('user'));
+      setStorage('user');
+      console.log(list);
+      const returnUserId = await axios.get(`http://localhost:3001/user/${list.email}`);
+      const allSales = await axios.get(`http://localhost:3001/user/orders/${returnUserId}`);
+      setSales(allSales);
+    };
+    returnSales();
   }, []);
 
   const history = useHistory();
@@ -42,7 +42,6 @@ export default function Orders({ id, status, saleDate, totalPrice }) {
           Meus Pedidos
         </h3>
       </nav>
-      {console.log(products)}
 
       <div>
         {Object.keys(storage).length > 0 && storage.name}
@@ -51,27 +50,28 @@ export default function Orders({ id, status, saleDate, totalPrice }) {
       <div>
         <button onClick={ logout } type="button">Sair</button>
       </div>
+      <div>
+        {sales.length > 0 && sales.map((product, index) => (
+          <div
+            data-testid={ `customer_orders__element-order-date-${index}` }
+            key={ index }
+          >
+            {
+              convertDate(product.saleDate)
+            }
 
-      <span data-testid={ `customer_orders__element-order-date-${id}` }>
-        {
-          convertDate(saleDate)
-        }
+            <div data-testid={ `customer_orders__element-delivery-status-${index}` }>
+              {product.status}
+            </div>
 
-        <span data-testid={ `customer_orders__element-delivery-status-${id}` }>
-          {status}
-        </span>
+            <div data-testid={ `customer_orders__element-card-price-${index}` }>
+              {product.totalPrice}
+            </div>
 
-        <span data-testid={ `customer_orders__element-card-price-${id}` }>
-          totalPrice
-        </span>
+          </div>
+        ))}
+      </div>
 
-      </span>
     </div>
   );
 }
-
-Orders.propTypes = {
-  id: PropTypes.string.isRequired,
-  status: PropTypes.string.isRequired,
-  saleDate: PropTypes.string.isRequired,
-};
