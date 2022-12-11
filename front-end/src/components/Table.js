@@ -1,7 +1,16 @@
 import PropTypes from 'prop-types';
 
 export default function Table({ list }) {
-  console.log(list);
+  const returnTotal = (quant, price) => {
+    const mult = Number(quant) * Number(price);
+    return mult.toFixed(2).toString().replace('.', ',');
+  };
+
+  const returnPrice = (price) => {
+    const v = Number(price).toFixed(2).toString().replace('.', ',');
+    return v;
+  };
+
   return (
     <table>
       <thead>
@@ -21,31 +30,31 @@ export default function Table({ list }) {
                 data-testid={ 'customer_order_details__element-'
                 + `order-table-item-number-${index + 1}` }
               >
-                Item
+                { product.id }
               </td>
               <td
                 data-testid={ 'customer_order_details__eleme'
                 + `nt-order-table-name-${index + 1}` }
               >
-                Name
+                { product.name }
               </td>
               <td
                 data-testid={ 'customer_order_details__element'
                 + `-order-table-quantity-${index + 1}` }
               >
-                Quantidade
+                { product.quant }
               </td>
               <td
                 data-testid={ 'customer_order_details__element-order'
                 + `-table-unit-price-${index + 1}` }
               >
-                Valor Unitário
+                { returnPrice(product.price) }
               </td>
               <td
                 data-testid={ 'customer_order_details__el'
                 + `ement-order-table-sub-total-${index + 1}` }
               >
-                Sub-total
+                { returnTotal(product.quant, product.price) }
               </td>
             </tr>
           ))
