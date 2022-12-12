@@ -48,6 +48,11 @@ const userFindSales = async (userId) => {
   return sales;
 };
 
+const findSellerSales = async (sellerId) => {
+  const sellers = await Sale.findAll({ where: { sellerId } });
+  return sellers;
+};
+
 const findSaleById = async (id) => {
   const products = await Sale.findOne({
     include: [{ model: User,
@@ -85,4 +90,5 @@ module.exports = {
   findSaleById,
   findSaleProducts,
   findQuantity,
+  findSellerSales,
 };

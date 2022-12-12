@@ -44,10 +44,11 @@ export default function CustomerDetails() {
         <button
           type="button"
           data-testid="customer_order_details__button-delivery-check"
+          disabled
         >
           Marcar como entregue
         </button>
-        { data.list && <Table list={ data.list } /> }
+        { data.list && <Table list={ data.list } type="customer" /> }
         <div
           data-testid={ 'customer_order_details__elemen'
           + 't-order-total-price' }
