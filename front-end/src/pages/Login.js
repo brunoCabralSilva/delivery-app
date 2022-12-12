@@ -46,7 +46,7 @@ export default function Login() {
       setValidation(false);
       if (vEmail.status === VALID_STATUS) {
         localStorage.setItem('user', JSON.stringify(vEmail.data));
-        if(vEmail.data.role === 'customer') {
+        if (vEmail.data.role === 'customer') {
           history.push('/customer/products');
         } else if (vEmail.data.role === 'seller') {
           history.push('/seller/orders');

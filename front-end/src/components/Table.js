@@ -30,7 +30,8 @@ export default function Table({ list, type }) {
                 data-testid={
                   `${type === 'seller' ? 'seller' : 'customer'}`
                   + '_order_details__element-'
-                  + `order-table-item-number-${index + 1}` }
+                  + `order-table-item-number-${index + 1}`
+                }
               >
                 { product.id }
               </td>
@@ -38,7 +39,8 @@ export default function Table({ list, type }) {
                 data-testid={
                   `${type === 'seller' ? 'seller' : 'customer'}`
                   + '_order_details__eleme'
-                  + `nt-order-table-name-${index + 1}` }
+                  + `nt-order-table-name-${index + 1}`
+                }
               >
                 { product.name }
               </td>
@@ -46,7 +48,8 @@ export default function Table({ list, type }) {
                 data-testid={
                   `${type === 'seller' ? 'seller' : 'customer'}`
                   + '_order_details__element'
-                  + `-order-table-quantity-${index + 1}` }
+                  + `-order-table-quantity-${index + 1}`
+                }
               >
                 { product.quant }
               </td>
@@ -54,7 +57,8 @@ export default function Table({ list, type }) {
                 data-testid={
                   `${type === 'seller' ? 'seller' : 'customer'}`
                   + '_order_details__element-order'
-                  + `-table-unit-price-${index + 1}` }
+                  + `-table-unit-price-${index + 1}`
+                }
               >
                 { returnPrice(product.price) }
               </td>
@@ -62,7 +66,8 @@ export default function Table({ list, type }) {
                 data-testid={
                   `${type === 'seller' ? 'seller' : 'customer'}`
                   + '_order_details__el'
-                  + `ement-order-table-sub-total-${index + 1}` }
+                  + `ement-order-table-sub-total-${index + 1}`
+                }
               >
                 { returnTotal(product.quant, product.price) }
               </td>
