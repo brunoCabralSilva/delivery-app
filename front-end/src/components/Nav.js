@@ -30,9 +30,13 @@ export default function Nav() {
       <div data-testid="customer_products__element-navbar-user-full-name">
         {Object.keys(storage).length > 0 && storage.name}
       </div>
-      <div data-testid="customer_products__element-navbar-link-logout">
-        <button onClick={ logout } type="button">Sair</button>
-      </div>
+      <button
+        onClick={ logout }
+        data-testid="customer_products__element-navbar-link-logout"
+        type="button"
+      >
+        Logout
+      </button>
     </nav>
   );
 }

@@ -35,6 +35,9 @@ export default function CustomerDetails() {
     <div>
       <Nav />
       <div>
+      <div data-testid="customer_products__element-navbar-link-logout">
+        <button onClick={ logout } type="button">Logout</button>
+      </div>
         <div
           data-testid="customer_order_details__element-order-details-label-order-id"
         >

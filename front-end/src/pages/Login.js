@@ -45,8 +45,12 @@ export default function Login() {
       const vEmail = await axios.post('http://localhost:3001/login', { email, password });
       setValidation(false);
       if (vEmail.status === VALID_STATUS) {
-        history.push('/customer/products');
         localStorage.setItem('user', JSON.stringify(vEmail.data));
+        if(vEmail.data.role === 'customer') {
+          history.push('/customer/products');
+        } else if (vEmail.data.role === 'seller') {
+          history.push('/seller/orders');
+        }
       }
     } catch (error) {
       console.log(error.message);
