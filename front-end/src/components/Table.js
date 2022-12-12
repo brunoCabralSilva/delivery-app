@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-export default function Table({ list }) {
+export default function Table({ list, type }) {
   const returnTotal = (quant, price) => {
     const mult = Number(quant) * Number(price);
     return mult.toFixed(2).toString().replace('.', ',');
@@ -27,32 +27,42 @@ export default function Table({ list }) {
           list.map((product, index) => (
             <tr key={ index }>
               <td
-                data-testid={ 'customer_order_details__element-'
-                + `order-table-item-number-${index + 1}` }
+                data-testid={
+                  `${type === 'seller' ? 'seller' : 'customer'}`
+                  + '_order_details__element-'
+                  + `order-table-item-number-${index + 1}` }
               >
                 { product.id }
               </td>
               <td
-                data-testid={ 'customer_order_details__eleme'
-                + `nt-order-table-name-${index + 1}` }
+                data-testid={
+                  `${type === 'seller' ? 'seller' : 'customer'}`
+                  + '_order_details__eleme'
+                  + `nt-order-table-name-${index + 1}` }
               >
                 { product.name }
               </td>
               <td
-                data-testid={ 'customer_order_details__element'
-                + `-order-table-quantity-${index + 1}` }
+                data-testid={
+                  `${type === 'seller' ? 'seller' : 'customer'}`
+                  + '_order_details__element'
+                  + `-order-table-quantity-${index + 1}` }
               >
                 { product.quant }
               </td>
               <td
-                data-testid={ 'customer_order_details__element-order'
-                + `-table-unit-price-${index + 1}` }
+                data-testid={
+                  `${type === 'seller' ? 'seller' : 'customer'}`
+                  + '_order_details__element-order'
+                  + `-table-unit-price-${index + 1}` }
               >
                 { returnPrice(product.price) }
               </td>
               <td
-                data-testid={ 'customer_order_details__el'
-                + `ement-order-table-sub-total-${index + 1}` }
+                data-testid={
+                  `${type === 'seller' ? 'seller' : 'customer'}`
+                  + '_order_details__el'
+                  + `ement-order-table-sub-total-${index + 1}` }
               >
                 { returnTotal(product.quant, product.price) }
               </td>
@@ -66,4 +76,5 @@ export default function Table({ list }) {
 
 Table.propTypes = {
   list: PropTypes.arrayOf().isRequired,
+  type: PropTypes.string.isRequired,
 };
