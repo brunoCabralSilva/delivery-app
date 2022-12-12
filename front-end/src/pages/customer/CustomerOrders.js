@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import Navigator from '../components/navigator';
+import Nav from '../../components/Nav';
 
-export default function Orders() {
+export default function CustomerOrders() {
   const [sales, setSales] = useState([]);
 
   useEffect(() => {
@@ -27,7 +27,7 @@ export default function Orders() {
 
   return (
     <div>
-      <Navigator />
+      <Nav />
       <div>
         {
           sales.length > 0 && sales.map((product, index) => (
