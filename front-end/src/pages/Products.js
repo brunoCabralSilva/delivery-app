@@ -101,12 +101,20 @@ export default function Products() {
   return (
     <div>
       <header>
-        <div data-testid="customer_products__element-navbar-link-products">
+        <button
+          data-testid="customer_products__element-navbar-link-products"
+          type="button"
+          onClick={ () => history.push('./products') }
+        >
           Produtos
-        </div>
-        <div data-testid="customer_products__element-navbar-link-orders">
+        </button>
+        <button
+          data-testid="customer_products__element-navbar-link-orders"
+          type="button"
+          onClick={ () => history.push('./orders') }
+        >
           Pedidos
-        </div>
+        </button>
         <div data-testid="customer_products__element-navbar-user-full-name">
           { Object.keys(storage).length > 0 && storage.name }
         </div>

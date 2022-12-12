@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import Nav from '../../components/Nav';
 
 export default function CustomerCheckout() {
   const [listProducts, setProducts] = useState([]);
@@ -22,6 +23,7 @@ export default function CustomerCheckout() {
       try {
         const sellers = await axios.get('http://localhost:3001/user/sellers');
         const returnUserId = await axios.get(`http://localhost:3001/user/${userStorage.email}`);
+        console.log(returnUserId.data);
         if (sellers.status === VALID_STATUS) {
           setAllSellers(sellers.data);
           setSeller(sellers.data[0].id);
@@ -56,6 +58,7 @@ export default function CustomerCheckout() {
         list: listProducts,
       }, { headers: { authorization: user.token,
       } });
+      console.log(register);
       history.push(`/customer/orders/${register.data.id}`);
     } catch (error) {
       console.log(error.message);
@@ -64,6 +67,7 @@ export default function CustomerCheckout() {
 
   return (
     <div>
+      <Nav />
       <table>
         <thead>
           <tr>

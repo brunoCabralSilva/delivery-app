@@ -18,10 +18,14 @@ export default function Nav() {
   return (
     <nav>
       <h3 data-testid="customer_products__element-navbar-link-products">
-        Produtos
+        <button onClick={ () => history.push('/customer/products') } type="button">
+          Produtos
+        </button>
       </h3>
       <h3 data-testid="customer_products__element-navbar-link-orders">
-        Meus Pedidos
+        <button onClick={ () => history.push('/customer/orders') } type="button">
+          Meus Pedidos
+        </button>
       </h3>
       <div data-testid="customer_products__element-navbar-user-full-name">
         {Object.keys(storage).length > 0 && storage.name}

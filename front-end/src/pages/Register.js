@@ -26,10 +26,12 @@ export default function Register() {
     try {
       setButton(true);
       const vUser = await axios.post('http://localhost:3001/register', { name, email, password });
+      const vEmail = await axios.post('http://localhost:3001/login', { email, password });
+      console.log('emailRegister', vEmail.data);
       if (vUser.status === CREATED_STATUS) {
         setValidation(true);
         history.push('/customer/products');
-        localStorage.setItem('user', JSON.stringify(vUser.data));
+        localStorage.setItem('user', JSON.stringify(vEmail.data));
       }
       if (vUser.status === BAD_STATUS || vUser.status === INVALID_STATUS) {
         setValidation(false);
