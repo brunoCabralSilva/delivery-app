@@ -1,14 +1,16 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Nav from '../../components/Nav';
+import { useHistory } from 'react-router-dom';
 
 export default function SellerOrders() {
   const [sales, setSales] = useState([]);
+  const history = useHistory();
 
   useEffect(() => {
     const returnSales = async () => {
       const list = JSON.parse(localStorage.getItem('user'));
-      if (!list.token) {
+      if (!list || !list.token) {
         history.push('/login');
       }
       try {
@@ -17,13 +19,12 @@ export default function SellerOrders() {
           id: returnUserId.data.id,
         },
         { headers: { authorization: list.token }});
+        setSales(allSales.data);
       } catch(error) {
         if (error.message === 'Token invalid') {
           history.push('/login');
         }
       }
-      console.log(allSales.data);
-      setSales(allSales.data);
     };
     returnSales();
   }, []);
