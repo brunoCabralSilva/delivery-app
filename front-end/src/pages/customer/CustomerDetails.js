@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import Navigator from '../components/navigator';
-import Table from '../components/Table';
+import Nav from '../../components/Nav';
+import Table from '../../components/Table';
 
-export default function Details() {
+export default function CustomerDetails() {
   const [data, setData] = useState({});
   const { id } = useParams();
 
@@ -18,7 +18,7 @@ export default function Details() {
 
   return (
     <div>
-      <Navigator />
+      <Nav />
       <div>
         <div
           data-testid="customer_order_details__element-order-details-label-order-id"

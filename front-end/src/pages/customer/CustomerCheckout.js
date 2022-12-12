@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
-export default function Checkout() {
+export default function CustomerCheckout() {
   const [listProducts, setProducts] = useState([]);
   const [numberAdress, setNumberAdress] = useState('');
   const [adress, setAdress] = useState('');

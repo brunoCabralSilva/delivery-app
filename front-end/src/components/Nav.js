@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
-export default function Navigator() {
+export default function Nav() {
   const [storage, setStorage] = useState({});
   const history = useHistory();
 
