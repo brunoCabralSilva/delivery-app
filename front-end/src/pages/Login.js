@@ -11,6 +11,25 @@ export default function Login() {
 
   useEffect(() => {
     setValidation(false);
+    const urlValidation = async () => {
+      const user = JSON.parse(localStorage.getItem('user'));
+      if (user) {
+        const { id } = user;
+        const vOrders = await axios.get(`http://localhost:3001/user/orders/${id}`);
+        const { role } = user;
+        if (role === 'customer') {
+          if (vOrders && vOrders.data.length > 0) {
+            history.push(`/${role}/orders`);
+          } else {
+            history.push(`/${role}/products`);
+          }
+        }
+        if (role === 'seller') {
+          history.push(`/${role}/orders`);
+        }
+      }
+    };
+    urlValidation();
   }, []);
 
   const enableButton = () => {
