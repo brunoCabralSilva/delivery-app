@@ -15,13 +15,13 @@ export default function SellerDetails() {
         setData(listProducts.data);
       };
       returnSales();
-    } catch(error) {
+    } catch (error) {
       console.log(error.message);
     }
   }, []);
 
-  const convertDate = (data) => {
-    const newDate = new Date(data);
+  const convertDate = (oldDate) => {
+    const newDate = new Date(oldDate);
     const date = `${newDate.getDate()}/${newDate
       .getMonth() + 1}/${newDate.getFullYear()}`;
     return date;
@@ -50,12 +50,13 @@ export default function SellerDetails() {
         </div>
         <button
           type="button"
-          data-testid='seller_order_details__button-preparing-check'
+          data-testid="seller_order_details__button-preparing-check"
         >
           PREPARAR PEDIDO
         </button>
         <button
           type="button"
+          disabled
           data-testid="seller_order_details__button-dispatch-check"
         >
           SAIU PARA A ENTREGA
@@ -66,7 +67,7 @@ export default function SellerDetails() {
           + 't-order-total-price' }
         >
           Total
-          {` `}
+          {' '}
           { data.totalPrice && data.totalPrice.replace('.', ',') }
         </div>
       </div>

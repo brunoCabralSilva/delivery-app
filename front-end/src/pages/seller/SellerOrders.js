@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import Nav from '../../components/Nav';
 import { useHistory } from 'react-router-dom';
+import Nav from '../../components/Nav';
 
 export default function SellerOrders() {
   const [sales, setSales] = useState([]);
@@ -15,12 +15,15 @@ export default function SellerOrders() {
       }
       try {
         const returnUserId = await axios.get(`http://localhost:3001/user/${list.email}`);
-        const allSales = await axios.post('http://localhost:3001/seller/sales', {
-          id: returnUserId.data.id,
-        },
-        { headers: { authorization: list.token }});
+        const allSales = await axios.post(
+          'http://localhost:3001/seller/sales',
+          {
+            id: returnUserId.data.id,
+          },
+          { headers: { authorization: list.token } },
+        );
         setSales(allSales.data);
-      } catch(error) {
+      } catch (error) {
         if (error.message === 'Token invalid') {
           history.push('/login');
         }
@@ -42,28 +45,34 @@ export default function SellerOrders() {
       <div>
         {
           sales.length > 0 && sales.map((product, index) => (
-            <div key={ index }>
+            <button
+              type="button"
+              key={ index }
+              onClick={
+                () => history.push(`/seller/orders/${product.id}`)
+              }
+            >
               <div data-testid={ `seller_orders__element-order-id-${product.id}` }>
                 Pedido
                 {`000${product.id}` }
               </div>
-              <p data-testid={ `seller_orders__element-order-date-${index}` }>
+              <p data-testid={ `seller_orders__element-order-date-${index + 1}` }>
                 {
                   convertDate(product.saleDate)
                 }
               </p>
-              <div data-testid={ `seller_orders__element-delivery-status-${index}` }>
+              <div data-testid={ `seller_orders__element-delivery-status-${index + 1}` }>
                 {product.status}
               </div>
-              <div data-testid={ `seller_orders__element-card-price-${index}` }>
+              <div data-testid={ `seller_orders__element-card-price-${index + 1}` }>
                 R$
-                {` `}
+                {' '}
                 { product.totalPrice.replace('.', ',') }
               </div>
-              <div data-testid={ `seller_orders__element-card-address-${index}` }>
+              <div data-testid={ `seller_orders__element-card-address-${index + 1}` }>
                 { `${product.deliveryAddress}, ${product.deliveryNumber}` }
               </div>
-            </div>
+            </button>
           ))
         }
       </div>
