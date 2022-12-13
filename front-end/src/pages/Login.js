@@ -50,6 +50,8 @@ export default function Login() {
           history.push('/customer/products');
         } else if (vEmail.data.role === 'seller') {
           history.push('/seller/orders');
+        } else if (vEmail.data.role === 'administrator') {
+          history.push('/admin/manage');
         }
       }
     } catch (error) {

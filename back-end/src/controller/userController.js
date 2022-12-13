@@ -1,4 +1,4 @@
-const { getUser, findAll, create, deleteUser } = require('../service/userService');
+const { getUser, findAllUsers, create, deleteUser } = require('../service/userService');
 const JwtAuth = require('../utils/Authentication');
 
 const returnIdUser = async (req, res) => {
@@ -9,15 +9,19 @@ const returnIdUser = async (req, res) => {
 };
 
 const returnAllUsers = async (req, res) => {
-  const users = await findAll();
+  const users = await findAllUsers();
   if (users) return res.status(200).json(users);
   return res.status(404).json({ message: 'Banco de dados sem usuários' });
 };
 
 const createUser = async (req, res) => {
   if (JwtAuth.validation(req.headers.authorization)) {
-  const user = await create(req.body);
-  if (user) return res.status(200).send('Usuário criado com sucesso');
+    try {
+      const user = await create(req.body);
+      if (user) return res.status(201).send('Created');
+    } catch (error) {
+    return res.status(409).send(error.message);
+    }
   }
   return res.status(400).send('Token not found');
 };
