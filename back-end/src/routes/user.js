@@ -7,7 +7,7 @@ const router = Router();
 
 router.get('/', userController.returnAllUsers);
 router.post('/', userController.createUser);
-router.delete('/', userController.deleteUsers);
+router.delete('/:id', userController.deleteUsers);
 router.get('/sellers', sellersController.findAllSellers);
 router.get('/orders/:id', salesController.findUserSales);
 router.get('/:email', userController.returnIdUser);
