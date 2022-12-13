@@ -1,7 +1,4 @@
-const JwtAuth = require("../utils/Authentication");
-
-const regex = /\S+@\S+\.\S+/;
-const number = 6;
+const JwtAuth = require('../utils/Authentication');
 
 module.exports = class Validate {
   static validateToken(req, res, next) {
@@ -14,4 +11,4 @@ module.exports = class Validate {
     }
     next();
   }
-}
+};
