@@ -83,6 +83,15 @@ const findSaleProducts = async (saleId) => {
   return response;
 };
 
+const updateSaleStatus = async (saleId, status) => {
+  const updatedSale = await Sale.update(
+    { status },
+    { where: { id: saleId } },
+    );
+  if (updatedSale) return updatedSale;
+  return null;
+};
+
 module.exports = {
   create,
   findId,
@@ -91,4 +100,5 @@ module.exports = {
   findSaleProducts,
   findQuantity,
   findSellerSales,
+  updateSaleStatus,
 };

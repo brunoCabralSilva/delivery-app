@@ -6,12 +6,16 @@ import Table from '../../components/Table';
 
 export default function SellerDetails() {
   const [data, setData] = useState({});
+  const [saleStatus, setSaleStatus] = useState('');
   const { id } = useParams();
+  const TRANSIT = 'Em Trânsito';
+  const PREPARE = 'Preparando';
 
   useEffect(() => {
     try {
       const returnSales = async () => {
         const listProducts = await axios.get(`http://localhost:3001/sale/${id}`);
+        setSaleStatus(listProducts.data.status);
         setData(listProducts.data);
       };
       returnSales();
@@ -19,6 +23,25 @@ export default function SellerDetails() {
       console.log(error.message);
     }
   }, []);
+
+  const updateStatus = async (status) => {
+    try {
+      await axios.post('http://localhost:3001/sale/', { newStatus: status, saleId: id });
+      setSaleStatus(status);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const disablePrepare = () => {
+    const verify = saleStatus === 'Pendente';
+    return !verify;
+  };
+
+  const disableDelivery = () => {
+    const verify = saleStatus === 'Preparando';
+    return !verify;
+  };
 
   const convertDate = (oldDate) => {
     const newDate = new Date(oldDate);
@@ -46,17 +69,20 @@ export default function SellerDetails() {
           data-testid={ 'seller_order_details__element-order'
           + '-details-label-delivery-status' }
         >
-          { data.status }
+          { saleStatus }
         </div>
         <button
           type="button"
+          disabled={ disablePrepare() }
+          onClick={ () => updateStatus(PREPARE) }
           data-testid="seller_order_details__button-preparing-check"
         >
           PREPARAR PEDIDO
         </button>
         <button
           type="button"
-          disabled
+          disabled={ disableDelivery() }
+          onClick={ () => updateStatus(TRANSIT) }
           data-testid="seller_order_details__button-dispatch-check"
         >
           SAIU PARA A ENTREGA
