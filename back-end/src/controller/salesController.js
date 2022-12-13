@@ -24,7 +24,7 @@ const findIdSales = async (req, res) => {
     }
     return res.status(200).json(sale);
   } catch (error) {
-    res.status(500).json({ message: 'Internal error' });
+    res.status(500).json({ message: 'Intern0 error' });
   }
 };
 
