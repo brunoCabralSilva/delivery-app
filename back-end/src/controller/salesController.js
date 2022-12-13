@@ -2,6 +2,7 @@ const salesService = require('../service/salesService');
 const productService = require('../service/productService');
 
 const JwtAuth = require('../utils/Authentication');
+const logicStatusSale = require('../utils/verifyStatusSale');
 require('dotenv').config();
 
 const createSales = async (req, res) => {
@@ -72,10 +73,27 @@ const findSaleById = async (req, res) => {
   }
 };
 
+const updateSales = async (req, res) => {
+  const { saleId, newStatus } = req.body;
+  if (!saleId || !newStatus) {
+    return res.status(400).json('Insira um ID de venda e um Status de venda'); 
+  }
+  const saleStatus = await salesService.findSaleById(saleId);
+  if (!saleStatus) res.status(404).json({ message: 'Venda inexistente' });
+  const sale = await salesService.updateSaleStatus(saleId, newStatus);
+  try {
+    const { status, message } = logicStatusSale(sale[0]);
+    return res.status(status).json({ message });    
+  } catch (error) {
+    res.status(404).json(error.message);
+  }
+};
+
 module.exports = {
   createSales,
   findIdSales,
   findUserSales,
   findSaleById,
   findSellerSales,
+  updateSales,
 };

@@ -7,22 +7,35 @@ import Table from '../../components/Table';
 export default function CustomerDetails() {
   const [data, setData] = useState({});
   const [seller, setSeller] = useState('');
+  const [saleStatus, setSaleStatus] = useState('');
   const { id } = useParams();
 
   useEffect(() => {
     const returnSales = async () => {
       const listProducts = await axios.get(`http://localhost:3001/sale/${id}`);
       const sellerName = await axios.get('http://localhost:3001/user/sellers');
+      setSaleStatus(listProducts.data.status);
       const filterSeller = sellerName.data
         .find((pessoa) => listProducts.data.sellerId === pessoa.id);
       setSeller(filterSeller.name);
       setData(listProducts.data);
-      console.log('filter', filterSeller);
-      console.log('seller', seller);
-      console.log('name', sellerName.data);
     };
     returnSales();
   }, []);
+
+  const buttonControl = () => {
+    const verify = saleStatus === 'Em Trânsito';
+    return !verify;
+  };
+
+  const updateStatus = async (status) => {
+    try {
+      await axios.post('http://localhost:3001/sale/', { newStatus: status, saleId: id });
+      setSaleStatus(status);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   const convertDate = (dataBase) => {
     const newDate = new Date(dataBase);
@@ -54,12 +67,13 @@ export default function CustomerDetails() {
           data-testid={ 'customer_order_details__element-order'
           + '-details-label-delivery-status' }
         >
-          { data.status }
+          { saleStatus }
         </div>
         <button
           type="button"
+          onClick={ () => updateStatus('Entregue') }
           data-testid="customer_order_details__button-delivery-check"
-          disabled
+          disabled={ buttonControl() }
         >
           Marcar como entregue
         </button>
