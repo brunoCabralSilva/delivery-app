@@ -5,4 +5,19 @@ const getUser = async (email) => {
   return user;
 };
 
-module.exports = { getUser };
+const findAll = async () => {
+  const user = await User.findAll();
+  return user;
+};
+
+const create = async (body) => {
+  const user = await User.create(body);
+  return user;
+};
+
+const deleteUser = async (id) => {
+  const user = await User.delete({ where: id });
+  return user;
+};
+
+module.exports = { getUser, findAll, create, deleteUser };
