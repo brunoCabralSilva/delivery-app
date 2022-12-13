@@ -16,7 +16,7 @@ const returnAllUsers = async (req, res) => {
 
 const createUser = async (req, res) => {
   if (JwtAuth.validation(req.headers.authorization)) {
-  const user = await create();
+  const user = await create(req.body);
   if (user) return res.status(200).send('Usuário criado com sucesso');
   }
   return res.status(400).send('Token not found');
