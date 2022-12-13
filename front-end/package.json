@@ -66,6 +66,7 @@
       "reportWebVitals.js",
       "./services/renderWithRouter",
       "./services/history"
-    ]
+    ],
+    "transformIgnorePatterns": ["node_modules\/(?!axios)"]
   }
 }
