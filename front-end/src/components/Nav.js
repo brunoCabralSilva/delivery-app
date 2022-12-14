@@ -7,7 +7,9 @@ export default function Nav() {
 
   useEffect(() => {
     const list = JSON.parse(localStorage.getItem('user'));
-    setStorage(list);
+    if (list) {
+      setStorage(list);
+    }
   }, []);
 
   const logout = () => {
