@@ -28,6 +28,7 @@ export default function Nav({ page, valuePrice }) {
         className={
           'font-bold text-white rounded flex items-center bg-gradi'
           + 'ent-to-r px-5 py-2 ml-5 from-orange-700 to-yellow-600'
+          + ' hover:from-yellow-600 hover:to-orange-700 transition-colors duration-500'
         }
         type="button"
         onClick={ () => history.push('/customer/checkout') }
@@ -60,7 +61,9 @@ export default function Nav({ page, valuePrice }) {
         >
           <span
             className={ 'font-bold text-transparent bg-gradient-to-r from-'
-              + 'orange-700 to-yellow-600 bg-clip-text' }
+              + 'orange-700 to-yellow-600 bg-clip-text'
+              + ' hover:from-yellow-600 hover:to-orange-700'
+              + ' transition-colors duration-500' }
           >
             Produtos
           </span>
@@ -81,7 +84,9 @@ export default function Nav({ page, valuePrice }) {
         >
           <span
             className={ 'font-bold text-transparent bg-gradient-to-r'
-              + ' from-orange-700 to-yellow-600 bg-clip-text' }
+              + ' from-orange-700 to-yellow-600 bg-clip-text'
+              + ' hover:from-yellow-600 hover:to-orange-700'
+              + ' transition-colors duration-500' }
           >
             Meus Pedidos
           </span>
@@ -106,6 +111,8 @@ export default function Nav({ page, valuePrice }) {
           className={
             'font-bold text-white rounded bg-gradi'
             + 'ent-to-r p-3 mx-3 from-orange-700 to-yellow-600'
+            + ' hover:from-yellow-600 hover:to-orange-700'
+            + ' transition-colors duration-500'
           }
           onClick={ logout }
           data-testid="customer_products__element-navbar-link-logout"

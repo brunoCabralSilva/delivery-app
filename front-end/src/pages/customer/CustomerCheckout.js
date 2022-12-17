@@ -65,46 +65,56 @@ export default function CustomerCheckout() {
     }
   };
 
+  const colorCell = 'font-bold text-white rounded flex'
+  + ' items-center flex justify-center bg-gradi'
+  + 'ent-to-r px-5 py-2 from-orange-700 to-yellow-600';
+  const colorTd = 'border px-5 py-2 my-1 flex items-center justify-center text-center';
+
   return (
     <div>
       <Nav />
-      <table>
+      <table className="mt-10">
         <thead>
-          <tr>
-            <th>Item</th>
-            <th>Descrição</th>
-            <th>Quantidade</th>
-            <th>Valor Unitário</th>
-            <th>Sub-total</th>
-            <th>Remover Item</th>
+          <tr className="grid grid-cols-6 gap-2 p-3">
+            <th className={ colorCell }>Item</th>
+            <th className={ colorCell }>Descrição</th>
+            <th className={ colorCell }>Quantidade</th>
+            <th className={ colorCell }>Valor Unitário</th>
+            <th className={ colorCell }>Sub-total</th>
+            <th className={ colorCell }>Remoção de Item</th>
           </tr>
         </thead>
         <tbody>
           {listProducts.map((drink, index) => (
-            <tr key={ index }>
+            <tr key={ index } className="grid grid-cols-6 gap-2 px-3">
               <td
+                className={ colorTd }
                 data-testid={ 'customer_checkout__element-order'
                 + `-table-item-number-${index}` }
               >
                 { index + 1 }
               </td>
               <td
+                className={ colorTd }
                 data-testid={ `customer_checkout__element-order-table-name-${index}` }
               >
                 { drink.name }
               </td>
               <td
+                className={ colorTd }
                 data-testid={ `customer_checkout__element-order-table-quantity-${index}` }
               >
                 { drink.quant }
               </td>
               <td
+                className={ colorTd }
                 data-testid={ 'customer_checkout__element-order'
                 + `-table-unit-price-${index}` }
               >
                 { drink.price.toString().replace('.', ',') }
               </td>
               <td
+                className={ colorTd }
                 data-testid={
                   `customer_checkout__element-order-table-sub-total-${index}`
                 }
@@ -112,9 +122,15 @@ export default function CustomerCheckout() {
                 {(Number(drink.price) * Number(drink.quant))
                   .toFixed(2).toString().replace('.', ',')}
               </td>
-              <td>
+              <td className="border my-1 flex items-center justify-center text-center">
                 <button
                   type="button"
+                  className={
+                    'h-full w-full'
+                    + ' flex items-center justify-center'
+                    + ' text-center bg-white hover:bg-red-600'
+                    + ' transition-all duration-1000 text-black hover:text-white'
+                  }
                   onClick={ () => removeItem(index) }
                   data-testid={ `customer_checkout__element-order-table-remove-${index}` }
                 >
@@ -125,14 +141,10 @@ export default function CustomerCheckout() {
           ))}
         </tbody>
       </table>
-      <div
-        data-testid="customer_checkout__element-order-total-price"
-      >
-        { totalValor().toFixed(2).toString().replace('.', ',') }
-      </div>
-      <div>
+      <div className="grid grid-cols-5 mt-5 p-3">
         <select
           type="select"
+          className="border"
           onChange={ (e) => setSeller(e.target.value) }
           data-testid="customer_checkout__select-seller"
         >
@@ -144,18 +156,36 @@ export default function CustomerCheckout() {
         </select>
         <input
           value={ adress }
+          className="border py-2 px-2 mx-1 text-center"
+          placeholder="Endereço"
           onChange={ (e) => setAdress(e.target.value) }
           type="text"
           data-testid="customer_checkout__input-address"
         />
         <input
           type="number"
+          className="border py-2 px-2 text-center"
+          placeholder="Número"
           value={ numberAdress }
           onChange={ (e) => setNumberAdress(e.target.value) }
           data-testid="customer_checkout__input-address-number"
         />
+        <div
+          data0-testid="customer_checkout__element-order-total-price"
+          className="flex justify-center items-center border mx-1"
+        >
+          <span className="font-bold pr-3">Total:</span>
+          <span className="pr-2">R$</span>
+          { totalValor().toFixed(2).toString().replace('.', ',') }
+        </div>
         <button
           type="button"
+          className={
+            'border font-bold text-white rounded flex'
+            + ' flex items-center justify-center bg-gradi'
+            + 'ent-to-r px-5 py-2 from-orange-700 to-yellow-600'
+            + ' hover:from-yellow-600 hover:to-orange-700 transition-colors duration-500'
+          }
           onClick={ registerSale }
           data-testid="customer_checkout__button-submit-order"
         >
