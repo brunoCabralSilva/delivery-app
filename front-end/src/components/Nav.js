@@ -45,6 +45,16 @@ export default function Nav({ page, valuePrice }) {
     return button;
   };
 
+  const redirectUser = () => {
+    if (storage.role === 'seller') {
+      history.push('/seller/orders');
+    } else if (storage.role === 'customer') {
+      history.push('/customer/orders');
+    } else {
+      history.push('/admin/manage');
+    }
+  };
+
   return (
     <nav className="flex w-full justify-between my-2">
       <div className="flex items-center">
@@ -62,8 +72,8 @@ export default function Nav({ page, valuePrice }) {
           <span
             className={ 'font-bold text-transparent bg-gradient-to-r from-'
               + 'orange-700 to-yellow-600 bg-clip-text'
-              + ' hover:from-yellow-600 hover:to-orange-700'
-              + ' transition-colors duration-500' }
+              + ' hover:from-yellow-600 hover:to-orange-700 tran'
+              + 'sition-colors duration-500' }
           >
             Produtos
           </span>
@@ -80,7 +90,7 @@ export default function Nav({ page, valuePrice }) {
           className=""
           type="button"
           data-testid="customer_products__element-navbar-link-orders"
-          onClick={ () => history.push('/customer/orders') }
+          onClick={ redirectUser }
         >
           <span
             className={ 'font-bold text-transparent bg-gradient-to-r'
@@ -88,7 +98,11 @@ export default function Nav({ page, valuePrice }) {
               + ' hover:from-yellow-600 hover:to-orange-700'
               + ' transition-colors duration-500' }
           >
-            Meus Pedidos
+            {
+              storage.role === 'seller'
+                ? 'Minhas Vendas'
+                : 'Meus Pedidos'
+            }
           </span>
         </button>
       </div>

@@ -6,6 +6,17 @@ import 'swiper/css/pagination';
 import 'swiper/css/autoplay';
 
 export default function Carousel({ list, data }) {
+  const returnImages = (endpoint) => {
+    const link = require(`../images/${endpoint}.jpg`);
+    return (
+      <img
+        className="object-cover h-full w-full"
+        src={ link }
+        alt="imagem de comida"
+      />
+    );
+  };
+
   return (
     <Swiper
       className="w-full h-full"
@@ -18,11 +29,7 @@ export default function Carousel({ list, data }) {
       {
         list.map((endpoint, index) => (
           <SwiperSlide key={ index }>
-            <img
-              className="object-cover h-full w-full"
-              src={ require(`../images/${endpoint}.jpg`) }
-              alt="imagem de comida"
-            />
+            { returnImages(endpoint) }
           </SwiperSlide>
         ))
       }

@@ -31,33 +31,52 @@ export default function CustomerOrders() {
   return (
     <div>
       <Nav />
-      <div>
+      <div className="flex flex-wrap">
         {
           sales.length > 0 && sales.map((product, index) => (
-            <button
-              type="button"
+            <div
+              className="w-1/3 p-3"
               key={ index }
-              onClick={ () => history.push(`./orders/${product.id}`) }
             >
-              <div data-testid={ `customer_orders__element-order-id-${product.id}` }>
-                Pedido
-                {`000${product.id}` }
-              </div>
-              <p data-testid={ `customer_orders__element-order-date-${index + 1}` }>
-                {
-                  convertDate(product.saleDate)
+              <button
+                className={
+                  'w-full bg-gradient-to-r from-orange-700 to-yellow-600'
+                  + ' text-white font-bold p-5 grid grid-cols-3 rounded'
                 }
-              </p>
-              <div
-                data-testid={ `customer_orders__element-delivery-status-${index + 1}` }
+                type="button"
+                onClick={ () => history.push(`./orders/${product.id}`) }
               >
-                {product.status}
-              </div>
-              <div data-testid={ `customer_orders__element-card-price-${index + 1}` }>
-                R$
-                { product.totalPrice.toString().replace('.', ',') }
-              </div>
-            </button>
+                <div className="h-full flex flex-col items-center justify-center">
+                  <div
+                    className="flex flex-col"
+                    data-testid={ `customer_orders__element-order-id-${product.id}` }
+                  >
+                    <span className="text-3xl">{`000${product.id}` }</span>
+                  </div>
+                  <p data-testid={ `customer_orders__element-order-date-${index + 1}` }>
+                    {
+                      convertDate(product.saleDate)
+                    }
+                  </p>
+                </div>
+                <div
+                  className={
+                    'h-full flex flex-col items-center'
+                    + ' justify-center border p-10 rounded'
+                  }
+                  data-testid={ `customer_orders__element-delivery-status-${index + 1}` }
+                >
+                  {product.status}
+                </div>
+                <div
+                  className="h-full flex flex-col items-center justify-center"
+                  data-testid={ `customer_orders__element-card-price-${index + 1}` }
+                >
+                  R$
+                  { product.totalPrice.toString().replace('.', ',') }
+                </div>
+              </button>
+            </div>
           ))
         }
       </div>

@@ -5,7 +5,7 @@ import Nav from '../../components/Nav';
 
 export default function CustomerCheckout() {
   const [listProducts, setProducts] = useState([]);
-  const [numberAdress, setNumberAdress] = useState('');
+  const [numberAdress, setNumberAdress] = useState(0);
   const [adress, setAdress] = useState('');
   const [seller, setSeller] = useState('');
   const [userId, setUserId] = useState('');
@@ -30,7 +30,7 @@ export default function CustomerCheckout() {
           setUserId(returnUserId.data.id);
         }
       } catch (error) {
-        console.log(error.message);
+        window.alert(`Erro: ${error.message}`);
       }
     };
     returnSellers();
@@ -46,22 +46,32 @@ export default function CustomerCheckout() {
     const remove = listProducts.filter((item, i) => i !== index);
     setProducts(remove);
     localStorage.setItem('car-shop', JSON.stringify(remove));
+    const list = JSON.parse(localStorage.getItem('car-shop'));
+    if (list.length === 0) {
+      history.push('/customer/products');
+    }
   };
   const registerSale = async () => {
-    try {
-      const register = await axios.post('http://localhost:3001/customer/order', {
-        userId,
-        sellerId: seller,
-        totalPrice: totalValor().toFixed(2),
-        deliveryAddress: adress,
-        deliveryNumber: numberAdress,
-        list: listProducts,
-      }, { headers: { authorization: user.token,
-      } });
-      console.log(register);
-      history.push(`/customer/orders/${register.data.id}`);
-    } catch (error) {
-      console.log(error.message);
+    const lengthAdress = 5;
+    if (adress.length <= lengthAdress) {
+      window.alert('Necessário preencher um endereço maior que 5 caracteres');
+    } else if (numberAdress <= 0 || numberAdress === '') {
+      window.alert('Necessário inserir um número');
+    } else {
+      try {
+        const register = await axios.post('http://localhost:3001/customer/order', {
+          userId,
+          sellerId: seller,
+          totalPrice: totalValor().toFixed(2),
+          deliveryAddress: adress,
+          deliveryNumber: numberAdress,
+          list: listProducts,
+        }, { headers: { authorization: user.token,
+        } });
+        history.push(`/customer/orders/${register.data.id}`);
+      } catch (error) {
+        window.alert(`Erro: ${error.message}`);
+      }
     }
   };
 
@@ -75,7 +85,7 @@ export default function CustomerCheckout() {
       <Nav />
       <table className="mt-10">
         <thead>
-          <tr className="grid grid-cols-6 gap-2 p-3">
+          <tr className="w-screen grid grid-cols-6 gap-2 p-3">
             <th className={ colorCell }>Item</th>
             <th className={ colorCell }>Descrição</th>
             <th className={ colorCell }>Quantidade</th>
@@ -86,7 +96,7 @@ export default function CustomerCheckout() {
         </thead>
         <tbody>
           {listProducts.map((drink, index) => (
-            <tr key={ index } className="grid grid-cols-6 gap-2 px-3">
+            <tr key={ index } className="w-screen grid grid-cols-6 gap-2 px-3">
               <td
                 className={ colorTd }
                 data-testid={ 'customer_checkout__element-order'
@@ -141,10 +151,10 @@ export default function CustomerCheckout() {
           ))}
         </tbody>
       </table>
-      <div className="grid grid-cols-5 mt-5 p-3">
+      <div className="grid grid-cols-6 mt-5 p-3">
         <select
           type="select"
-          className="border"
+          className="border text-center"
           onChange={ (e) => setSeller(e.target.value) }
           data-testid="customer_checkout__select-seller"
         >
@@ -156,7 +166,7 @@ export default function CustomerCheckout() {
         </select>
         <input
           value={ adress }
-          className="border py-2 px-2 mx-1 text-center"
+          className="border py-2 px-2 mx-1 text-center col-span-2"
           placeholder="Endereço"
           onChange={ (e) => setAdress(e.target.value) }
           type="text"
