@@ -24,7 +24,7 @@ export default function Products() {
           setListProducts(valor);
         }
       } catch (error) {
-        console.log(error.message);
+        window.alert(`Erro: ${error.message}`);
         setListProducts([]);
       }
     };

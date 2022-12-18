@@ -226,7 +226,7 @@ export default function CustomerCheckout() {
             <th className={ `${colorCell} col-span-2` }>Nome</th>
             <th className={ `${colorCell} col-span-2` }>Email</th>
             <th className={ colorCell }>Cargo</th>
-            <th className={ colorCell }>Excluir</th>
+            <th className={ colorCell }>Excluir Usuário</th>
           </tr>
         </thead>
         <tbody>

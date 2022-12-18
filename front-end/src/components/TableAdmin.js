@@ -25,6 +25,16 @@ export default function TableAdmin({ index, user, updateUser }) {
     }
   };
 
+  const returnRole = () => {
+    if (user.role === 'customer') {
+      return 'Comprador';
+    }
+    if (user.role === 'seller') {
+      return 'Vendedor';
+    }
+    return 'Administrador';
+  };
+
   const colorTd = 'border px-5 py-2 my-1 flex items-center'
     + ' justify-center text-center';
 
@@ -55,7 +65,7 @@ export default function TableAdmin({ index, user, updateUser }) {
         className={ colorTd }
         data-testid={ `admin_manage__element-user-table-role-${index}` }
       >
-        { user.role }
+        { returnRole() }
       </td>
       <td className="border my-1 flex items-center justify-center text-center">
         <button

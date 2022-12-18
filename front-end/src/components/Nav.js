@@ -55,6 +55,41 @@ export default function Nav({ page, valuePrice }) {
     }
   };
 
+  const returnButtonProdutos = () => {
+    const spans = (
+      <button
+        className="pl-10"
+        data-testid="customer_products__element-navbar-link-products"
+        onClick={ () => history.push('/customer/products') }
+        type="button"
+      >
+        <span
+          className={ 'font-bold text-transparent bg-gradient-to-r from-'
+            + 'orange-700 to-yellow-600 bg-clip-text'
+            + ' hover:from-yellow-600 hover:to-orange-700 tran'
+            + 'sition-colors duration-500' }
+        >
+          Produtos
+        </span>
+      </button>
+    );
+    return spans;
+  };
+
+  const returnSpan = () => {
+    const spans = (
+      <span
+        className={
+          'font-bold text-transparent bg-gradient-to-r px-10'
+          + ' from-orange-700 to-yellow-600 bg-clip-text'
+        }
+      >
+        |
+      </span>
+    );
+    return spans;
+  };
+
   return (
     <nav className="flex w-full justify-between my-2">
       <div className="flex items-center">
@@ -63,29 +98,16 @@ export default function Nav({ page, valuePrice }) {
           alt="icone de fundo"
           className="z-40 w-20"
         />
-        <button
-          className="pl-10"
-          data-testid="customer_products__element-navbar-link-products"
-          onClick={ () => history.push('/customer/products') }
-          type="button"
-        >
-          <span
-            className={ 'font-bold text-transparent bg-gradient-to-r from-'
-              + 'orange-700 to-yellow-600 bg-clip-text'
-              + ' hover:from-yellow-600 hover:to-orange-700 tran'
-              + 'sition-colors duration-500' }
-          >
-            Produtos
-          </span>
-        </button>
-        <span
-          className={
-            'font-bold text-transparent bg-gradient-to-r px-10'
-            + ' from-orange-700 to-yellow-600 bg-clip-text'
-          }
-        >
-          |
-        </span>
+        {
+          storage.role === 'customer'
+            ? returnButtonProdutos()
+            : null
+        }
+        {
+          storage.role === 'customer'
+            ? returnSpan()
+            : null
+        }
         <button
           className=""
           type="button"

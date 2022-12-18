@@ -27,7 +27,6 @@ export default function Register() {
       setButton(true);
       const vUser = await axios.post('http://localhost:3001/register', { name, email, password });
       const vEmail = await axios.post('http://localhost:3001/login', { email, password });
-      console.log('emailRegister', vEmail.data);
       if (vUser.status === CREATED_STATUS) {
         setValidation(true);
         history.push('/customer/products');
@@ -37,7 +36,7 @@ export default function Register() {
         setValidation(false);
       }
     } catch (error) {
-      console.log(error.message);
+      window.alert(`Erro: ${error.message}`);
       setValidation(false);
     }
   };

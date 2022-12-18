@@ -10,11 +10,8 @@ export default function CustomerOrders() {
   useEffect(() => {
     const returnSales = async () => {
       const list = JSON.parse(localStorage.getItem('user'));
-
       const returnUserId = await axios.get(`http://localhost:3001/user/${list.email}`);
-      console.log(returnUserId.data.id);
       const allSales = await axios.get(`http://localhost:3001/user/orders/${returnUserId.data.id}`);
-      console.log('allsales', allSales);
       setSales(allSales.data);
     };
     returnSales();
@@ -24,7 +21,6 @@ export default function CustomerOrders() {
     const newDate = new Date(data);
     const date = `${newDate.getDate()}/${newDate
       .getMonth() + 1}/${newDate.getFullYear()}`;
-    console.log(date);
     return date;
   };
 

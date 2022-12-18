@@ -23,7 +23,6 @@ export default function CustomerCheckout() {
       try {
         const sellers = await axios.get('http://localhost:3001/user/sellers');
         const returnUserId = await axios.get(`http://localhost:3001/user/${userStorage.email}`);
-        console.log(returnUserId.data);
         if (sellers.status === VALID_STATUS) {
           setAllSellers(sellers.data);
           setSeller(sellers.data[0].id);
