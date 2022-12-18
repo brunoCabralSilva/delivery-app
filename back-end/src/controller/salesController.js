@@ -8,13 +8,13 @@ require('dotenv').config();
 const createSales = async (req, res) => {
   const sales = await salesService.create(req.body);
   if (JwtAuth.validation(req.headers.authorization)) {
-  try {
-    return res.status(201).json({ id: sales });
-  } catch (error) {
-    return res.status(404).json({ message: 'Internal error' });
+    try {
+      return res.status(201).json({ id: sales });
+    } catch (error) {
+      return res.status(404).json({ message: 'Internal error' });
+    }
   }
-}
-return res.status(400).json({ message: 'Token not found' });
+  return res.status(400).json({ message: 'Token not found' });
 };
 
 const findIdSales = async (req, res) => {

@@ -25,8 +25,6 @@ const create = async (body) => {
     email: newObjs.email,
   } });
 
-  console.log('found', foundUser);
-
   if (foundUser.length > 0) {
     throw new Error('Conflict');
   }
