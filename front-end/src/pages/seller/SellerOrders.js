@@ -42,37 +42,63 @@ export default function SellerOrders() {
   return (
     <div>
       <Nav />
-      <div>
+      <div className="flex flex-wrap">
         {
           sales.length > 0 && sales.map((product, index) => (
-            <button
-              type="button"
+            <div
+              className="w-1/3 p-3"
               key={ index }
-              onClick={
-                () => history.push(`/seller/orders/${product.id}`)
-              }
             >
-              <div data-testid={ `seller_orders__element-order-id-${product.id}` }>
-                Pedido
-                {`000${product.id}` }
-              </div>
-              <p data-testid={ `seller_orders__element-order-date-${index + 1}` }>
-                {
-                  convertDate(product.saleDate)
+              <button
+                className={
+                  'w-full bg-gradient-to-r from-orange-700 to-yellow-600'
+                  + ' text-white font-bold p-5 rounded'
                 }
-              </p>
-              <div data-testid={ `seller_orders__element-delivery-status-${index + 1}` }>
-                {product.status}
-              </div>
-              <div data-testid={ `seller_orders__element-card-price-${index + 1}` }>
-                R$
-                {' '}
-                { product.totalPrice.replace('.', ',') }
-              </div>
-              <div data-testid={ `seller_orders__element-card-address-${index + 1}` }>
-                { `${product.deliveryAddress}, ${product.deliveryNumber}` }
-              </div>
-            </button>
+                type="button"
+                onClick={
+                  () => history.push(`/seller/orders/${product.id}`)
+                }
+              >
+                <div className="grid grid-cols-3">
+                  <div className="flex flex-col items-center justify-center">
+                    <div
+                      className="flex flex-col text-3xl"
+                      data-testid={ `seller_orders__element-order-id-${product.id}` }
+                    >
+                      {`000${product.id}` }
+                    </div>
+                    <p data-testid={ `seller_orders__element-order-date-${index + 1}` }>
+                      {
+                        convertDate(product.saleDate)
+                      }
+                    </p>
+                  </div>
+                  <div
+                    className="h-full flex flex-col items-center justify-center"
+                    data-testid={
+                      'seller_orders__element-delivery-'
+                    + `status-${index + 1}`
+                    }
+                  >
+                    {product.status}
+                  </div>
+                  <div
+                    className="h-full flex flex-col items-center justify-center"
+                    data-testid={ `seller_orders__element-card-price-${index + 1}` }
+                  >
+                    R$
+                    {' '}
+                    { product.totalPrice.replace('.', ',') }
+                  </div>
+                </div>
+                <hr className="my-5" />
+                <div
+                  data-testid={ `seller_orders__element-card-address-${index + 1}` }
+                >
+                  { `${product.deliveryAddress}, ${product.deliveryNumber}` }
+                </div>
+              </button>
+            </div>
           ))
         }
       </div>

@@ -1,9 +1,12 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import { FiLogOut } from 'react-icons/fi';
+import TableAdmin from '../../components/TableAdmin';
 
 const regex = /\S+@\S+\.\S+/;
 const linkUser = 'http://localhost:3001/user';
+const icon = require('../../images/play.png');
 
 export default function CustomerCheckout() {
   const [userStorage, setUserStorage] = useState('');
@@ -35,7 +38,7 @@ export default function CustomerCheckout() {
         );
         setAllUsers(rAllUsers.data);
       } catch (error) {
-        console.log(error.message);
+        window.alert(`Erro: ${error.message}`);
       }
     };
     returnAllUsers();
@@ -50,7 +53,7 @@ export default function CustomerCheckout() {
       );
       setAllUsers(allUsersReturn.data);
     } catch (error) {
-      console.log(error.message);
+      window.alert(`Erro: ${error.message}`);
     }
   };
 
@@ -71,21 +74,6 @@ export default function CustomerCheckout() {
       setMessage('Usuário cadastrado com sucesso!');
     } catch (error) {
       setMessage(error.message);
-    }
-  };
-
-  const deleteUser = async (id) => {
-    try {
-      await axios.delete(
-        `http://localhost:3001/user/${id}`,
-        {
-          headers: { authorization: userStorage.token },
-        },
-      );
-      updateUser();
-      console.log('Usuário apagado com sucesso!');
-    } catch (error) {
-      console.log(error.message);
     }
   };
 
@@ -112,129 +100,144 @@ export default function CustomerCheckout() {
     return errorMessage;
   };
 
+  const colorCell = 'font-bold text-white rounded flex'
+  + ' items-center flex justify-center bg-gradi'
+  + 'ent-to-r px-5 py-2 from-orange-700 to-yellow-600';
+
   return (
     <div>
-      <nav>
-        <button
-          type="button"
-          data-testid="customer_products__element-navbar-link-orders"
-        >
-          Gerenciar Usuários
-        </button>
-        <div
-          data-testid="customer_products__element-navbar-user-full-name"
-        >
-          { userStorage.name }
+      <nav className="flex items-center justify-between">
+        <div className="flex">
+          <img
+            src={ icon }
+            alt="icone de fundo"
+            className="z-40 w-20"
+          />
+          <button
+            type="button"
+            data-testid="customer_products__element-navbar-link-orders"
+            className={ 'ml-5 font-bold text-transparent bg-gradient-to-r from-'
+              + 'orange-700 to-yellow-600 bg-clip-text'
+              + ' hover:from-yellow-600 hover:to-orange-700 tran'
+              + 'sition-colors duration-500' }
+            onClick={ () => history.push('/admin/manage') }
+          >
+            Gerenciar Usuários
+          </button>
         </div>
-        <button
-          onClick={ logout }
-          data-testid="customer_products__element-navbar-link-logout"
-          type="button"
-        >
-          Logout
-        </button>
+        <div className="flex items-center justify-center">
+          <div
+            className={
+              'font-bold text-transparent bg-gradient'
+              + '-to-r from-orange-700 to-yellow-600 bg-clip-text'
+            }
+            data-testid="customer_products__element-navbar-user-full-name"
+          >
+            { userStorage.name }
+          </div>
+          <button
+            className={
+              'font-bold text-white rounded bg-gradi'
+              + 'ent-to-r p-3 mx-3 from-orange-700 to-yellow-600'
+              + ' hover:from-yellow-600 hover:to-orange-700'
+              + ' transition-colors duration-500'
+            }
+            onClick={ logout }
+            data-testid="customer_products__element-navbar-link-logout"
+            type="button"
+          >
+            <FiLogOut />
+          </button>
+        </div>
       </nav>
-      <input
-        type="text"
-        value={ name }
-        onChange={ (e) => setName(e.target.value) }
-        data-testid="admin_manage__input-name"
-      />
-      <input
-        type="email"
-        value={ email }
-        onChange={ (e) => setEmail(e.target.value) }
-        data-testid="admin_manage__input-email"
-      />
-      <input
-        type="password"
-        value={ password }
-        onChange={ (e) => setPassword(e.target.value) }
-        data-testid="admin_manage__input-password"
-      />
-      <select
-        data-testid="admin_manage__select-role"
-        id="select-role"
-        onChange={ (e) => setRole(e.target.value) }
-        defaultValue="Vendedor"
+      <div className="w-screen grid grid-cols-5 gap-2 px-3 mt-10">
+        <input
+          className="border border-orange-700 py-1 px-2"
+          placeholder="Nome Completo"
+          type="text"
+          value={ name }
+          onChange={ (e) => setName(e.target.value) }
+          data-testid="admin_manage__input-name"
+        />
+        <input
+          className="border border-orange-700 py-1 px-2"
+          placeholder="E-mail"
+          type="email"
+          value={ email }
+          onChange={ (e) => setEmail(e.target.value) }
+          data-testid="admin_manage__input-email"
+        />
+        <input
+          className="border border-orange-700 py-1 px-2"
+          type="password"
+          placeholder="Senha"
+          value={ password }
+          onChange={ (e) => setPassword(e.target.value) }
+          data-testid="admin_manage__input-password"
+        />
+        <select
+          className="border border-orange-700 py-1 px-2 text-center"
+          data-testid="admin_manage__select-role"
+          id="select-role"
+          onChange={ (e) => setRole(e.target.value) }
+          defaultValue="Vendedor"
+        >
+          <option value="seller">
+            Vendedor
+          </option>
+          <option value="customer">
+            Comprador
+          </option>
+          <option value="administrator">
+            Administrador
+          </option>
+        </select>
+        <button
+          className={ 'p-1 py-2 text-white w-full z-30'
+          + ' bg-gradient-to-r from-orange-700 to-yellow-600' }
+          onClick={ registerUser }
+          disabled={ enableButton() }
+          type="button"
+          data-testid="admin_manage__button-register"
+        >
+          Cadastrar
+        </button>
+      </div>
+      <div className="w-full text-center my-5">
+        {
+          message !== 'Usuário cadastrado com sucesso!'
+            ? returnMessageError()
+            : null
+        }
+      </div>
+      <p
+        className={
+          'w-full text-center mt-10 mb-3 text-4xl'
+          + ' font-bold text-transparent bg-gradient'
+          + '-to-r from-orange-700 to-yellow-600 bg-clip-text'
+        }
       >
-        <option
-          value="seller"
-        >
-          Vendedor
-        </option>
-        <option
-          value="customer"
-        >
-          Comprador
-        </option>
-        <option
-          value="administrator"
-        >
-          Administrador
-        </option>
-      </select>
-      <button
-        onClick={ registerUser }
-        disabled={ enableButton() }
-        type="button"
-        data-testid="admin_manage__button-register"
-      >
-        Cadastrar
-      </button>
-      {
-        message !== 'Usuário cadastrado com sucesso!'
-          ? returnMessageError()
-          : null
-      }
-      <p>Lista de Usuários</p>
+        Lista de Usuários
+      </p>
       <table>
         <thead>
-          <tr>
-            <th>Item</th>
-            <th>Nome</th>
-            <th>Email</th>
-            <th>Cargo</th>
-            <th>Excluir</th>
+          <tr className="w-screen grid grid-cols-7 gap-2 p-3">
+            <th className={ colorCell }>Item</th>
+            <th className={ `${colorCell} col-span-2` }>Nome</th>
+            <th className={ `${colorCell} col-span-2` }>Email</th>
+            <th className={ colorCell }>Cargo</th>
+            <th className={ colorCell }>Excluir</th>
           </tr>
         </thead>
         <tbody>
           {
             allUsers.map((user, index) => (
-              <tr key={ index }>
-                <td
-                  data-testid={
-                    'admin_manage__element-user-'
-                    + `table-item-number-${index}`
-                  }
-                >
-                  { index + 1 }
-                </td>
-                <td
-                  data-testid={ `admin_manage__element-user-table-name-${index}` }
-                >
-                  { user.name }
-                </td>
-                <td
-                  data-testid={ `admin_manage__element-user-table-email-${index}` }
-                >
-                  { user.email }
-                </td>
-                <td
-                  data-testid={ `admin_manage__element-user-table-role-${index}` }
-                >
-                  { user.role }
-                </td>
-                <td>
-                  <button
-                    type="button"
-                    onClick={ () => deleteUser(user.id) }
-                    data-testid={ `admin_manage__element-user-table-remove-${index}` }
-                  >
-                    Excluir
-                  </button>
-                </td>
-              </tr>
+              <TableAdmin
+                key={ index }
+                index={ index }
+                user={ user }
+                updateUser={ updateUser }
+              />
             ))
           }
         </tbody>

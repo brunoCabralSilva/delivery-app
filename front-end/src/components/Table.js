@@ -11,22 +11,28 @@ export default function Table({ list, type }) {
     return v;
   };
 
+  const colorCell = 'font-bold text-white rounded flex'
+  + ' items-center flex justify-center bg-gradi'
+  + 'ent-to-r px-5 py-2 from-orange-700 to-yellow-600';
+  const colorTd = 'border px-5 py-2 my-1 flex items-center justify-center text-center';
+
   return (
     <table>
       <thead>
-        <tr>
-          <th>Item</th>
-          <th>Descrição</th>
-          <th>Quantidade</th>
-          <th>Valor Unitário</th>
-          <th>Sub-total</th>
+        <tr className="w-screen grid grid-cols-5 gap-2 p-3">
+          <th className={ colorCell }>Item</th>
+          <th className={ colorCell }>Descrição</th>
+          <th className={ colorCell }>Quantidade</th>
+          <th className={ colorCell }>Valor Unitário</th>
+          <th className={ colorCell }>Sub-total</th>
         </tr>
       </thead>
       <tbody>
         {
           list.map((product, index) => (
-            <tr key={ index }>
+            <tr key={ index } className="w-screen grid grid-cols-5 gap-2 px-3">
               <td
+                className={ colorTd }
                 data-testid={
                   `${type === 'seller' ? 'seller' : 'customer'}`
                   + '_order_details__element-'
@@ -36,6 +42,7 @@ export default function Table({ list, type }) {
                 { product.id }
               </td>
               <td
+                className={ colorTd }
                 data-testid={
                   `${type === 'seller' ? 'seller' : 'customer'}`
                   + '_order_details__eleme'
@@ -45,6 +52,7 @@ export default function Table({ list, type }) {
                 { product.name }
               </td>
               <td
+                className={ colorTd }
                 data-testid={
                   `${type === 'seller' ? 'seller' : 'customer'}`
                   + '_order_details__element'
@@ -54,6 +62,7 @@ export default function Table({ list, type }) {
                 { product.quant }
               </td>
               <td
+                className={ colorTd }
                 data-testid={
                   `${type === 'seller' ? 'seller' : 'customer'}`
                   + '_order_details__element-order'
@@ -63,6 +72,7 @@ export default function Table({ list, type }) {
                 { returnPrice(product.price) }
               </td>
               <td
+                className={ colorTd }
                 data-testid={
                   `${type === 'seller' ? 'seller' : 'customer'}`
                   + '_order_details__el'

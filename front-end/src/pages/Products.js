@@ -1,19 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import axios from 'axios';
+import Nav from '../components/Nav';
 
 const VALID_STATUS = 200;
 const NUMBER = 1;
 
 export default function Products() {
   const [listProducts, setListProducts] = useState([]);
-  const [storage, setStorage] = useState({});
   const [valuePrice, setValuePrice] = useState(0);
-  const history = useHistory();
 
   useEffect(() => {
-    setStorage(JSON.parse(localStorage.getItem('user')));
-
     const returnAllItems = async () => {
       try {
         const data = await axios.get('http://localhost:3001/customer/products');
@@ -43,11 +39,6 @@ export default function Products() {
       return -NUMBER;
     });
     return newList;
-  };
-
-  const logout = () => {
-    localStorage.clear();
-    history.push('/login');
   };
 
   const addQuant = (index) => {
@@ -100,80 +91,69 @@ export default function Products() {
 
   return (
     <div>
-      <header>
-        <button
-          data-testid="customer_products__element-navbar-link-products"
-          type="button"
-          onClick={ () => history.push('./products') }
-        >
-          Produtos
-        </button>
-        <button
-          data-testid="customer_products__element-navbar-link-orders"
-          type="button"
-          onClick={ () => history.push('./orders') }
-        >
-          Pedidos
-        </button>
-        <div data-testid="customer_products__element-navbar-user-full-name">
-          { Object.keys(storage).length > 0 && storage.name }
-        </div>
-        <button
-          type="button"
-          onClick={ () => history.push('/customer/checkout') }
-          data-testid="customer_products__button-cart"
-          disabled={ !valuePrice }
-        >
-          { valuePrice.toFixed(2).toString().replace('.', ',') }
-        </button>
-        <div
-          data-testid="customer_products__checkout-bottom-value"
-        >
-          { valuePrice.toFixed(2).toString().replace('.', ',') }
-        </div>
-        <button
-          type="button"
-          onClick={ logout }
-          data-testid="customer_products__element-navbar-link-logout"
-        >
-          Logout
-        </button>
-      </header>
-      <section>
+      <Nav
+        page="products"
+        valuePrice={ valuePrice }
+      />
+      <section
+        className="flex flex-wrap justify-start mt-5 ml-10"
+      >
         {
           listProducts.length > 0 && listProducts.map((list, index) => (
-            <div key={ index }>
-              <p data-testid={ `customer_products__element-card-title-${list.id}` }>
+            <div
+              key={ index }
+              className={
+                'w-1/6 m-2 border p-4 flex-col'
+                + ' justify-center rounded flex'
+                + ' items-center py-2 ml-5'
+              }
+            >
+              <div className="w-full flex justify-center">
+                <img
+                  data-testid={ `customer_products__img-card-bg-image-${list.id}` }
+                  className="h-52"
+                  src={ list.urlImage }
+                  alt={ `Imagem do produto ${list.id}` }
+                />
+              </div>
+              <p
+                data-testid={ `customer_products__element-card-title-${list.id}` }
+                className="pt-3 text-center"
+              >
                 { list.name }
               </p>
-              <p data-testid={ `customer_products__element-card-price-${list.id}` }>
+              <p
+                data-testid={ `customer_products__element-card-price-${list.id}` }
+                className="text-center"
+              >
+                <span className="pr-2">R$</span>
                 { list.price.replace('.', ',') }
               </p>
-              <img
-                data-testid={ `customer_products__img-card-bg-image-${list.id}` }
-                src={ list.urlImage }
-                alt={ `Imagem do produto ${list.id}` }
-              />
-              <button
-                data-testid={ `customer_products__button-card-rm-item-${list.id}` }
-                type="button"
-                onClick={ () => remQuant(index) }
-              >
-                -
-              </button>
-              <input
-                type="text"
-                data-testid={ `customer_products__input-card-quantity-${list.id}` }
-                value={ listProducts[index].quant }
-                onChange={ (e) => insertQuant(index, e.target.value) }
-              />
-              <button
-                data-testid={ `customer_products__button-card-add-item-${list.id}` }
-                onClick={ () => addQuant(index) }
-                type="button"
-              >
-                +
-              </button>
+              <div className="flex justify-center pt-2">
+                <button
+                  data-testid={ `customer_products__button-card-rm-item-${list.id}` }
+                  type="button"
+                  className="px-3 py-1 border mr-1"
+                  onClick={ () => remQuant(index) }
+                >
+                  -
+                </button>
+                <input
+                  type="text"
+                  className="w-2/3 px-3 py-1 border text-black text-center"
+                  data-testid={ `customer_products__input-card-quantity-${list.id}` }
+                  value={ listProducts[index].quant }
+                  onChange={ (e) => insertQuant(index, e.target.value) }
+                />
+                <button
+                  data-testid={ `customer_products__button-card-add-item-${list.id}` }
+                  onClick={ () => addQuant(index) }
+                  type="button"
+                  className="px-3 py-1 border ml-1"
+                >
+                  +
+                </button>
+              </div>
             </div>
           ))
         }

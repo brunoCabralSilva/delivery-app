@@ -50,51 +50,70 @@ export default function SellerDetails() {
     return date;
   };
 
+  const colorCell = 'font-bold text-white rounded flex'
+  + ' items-center flex justify-center bg-gradi'
+  + 'ent-to-r px-5 py-2 from-orange-700 to-yellow-600';
+
   return (
     <div>
       <Nav />
-      <div>
-        <div
-          data-testid="seller_order_details__element-order-details-label-order-id"
-        >
-          PEDIDO 000
-          { data.id }
+      <div className="">
+        <div className="w-screen grid grid-cols-5 gap-2 p-3">
+          <div
+            className={ colorCell }
+            data-testid="seller_order_details__element-order-details-label-order-id"
+          >
+            Id do Pedido: 000
+            { data.id }
+          </div>
+          <div
+            className={ colorCell }
+            data-testid="seller_order_details__element-order-details-label-order-date"
+          >
+            <span className="pr-2">Data da venda:</span>
+            { convertDate(data.saleDate) }
+          </div>
+          <div
+            className={ colorCell }
+            data-testid={ 'seller_order_details__element-order'
+            + '-details-label-delivery-status' }
+          >
+            { saleStatus }
+          </div>
+          <button
+            className={ colorCell }
+            type="button"
+            disabled={ disablePrepare() }
+            onClick={ () => updateStatus(PREPARE) }
+            data-testid="seller_order_details__button-preparing-check"
+          >
+            PREPARAR PEDIDO
+          </button>
+          <button
+            className={ colorCell }
+            type="button"
+            disabled={ disableDelivery() }
+            onClick={ () => updateStatus(TRANSIT) }
+            data-testid="seller_order_details__button-dispatch-check"
+          >
+            SAIU PARA A ENTREGA
+          </button>
         </div>
-        <div
-          data-testid="seller_order_details__element-order-details-label-order-date"
-        >
-          { convertDate(data.saleDate) }
-        </div>
-        <div
-          data-testid={ 'seller_order_details__element-order'
-          + '-details-label-delivery-status' }
-        >
-          { saleStatus }
-        </div>
-        <button
-          type="button"
-          disabled={ disablePrepare() }
-          onClick={ () => updateStatus(PREPARE) }
-          data-testid="seller_order_details__button-preparing-check"
-        >
-          PREPARAR PEDIDO
-        </button>
-        <button
-          type="button"
-          disabled={ disableDelivery() }
-          onClick={ () => updateStatus(TRANSIT) }
-          data-testid="seller_order_details__button-dispatch-check"
-        >
-          SAIU PARA A ENTREGA
-        </button>
         { data.list && <Table list={ data.list } type="seller" /> }
         <div
+          className="p-3 text-center"
           data-testid={ 'seller_order_details__elemen'
           + 't-order-total-price' }
         >
-          Total
-          {' '}
-          { data.totalPrice && data.totalPrice.replace('.', ',') }
+          <p
+            className={
+              'p-1 py-2 w-full text-white z-30 font-bold'
+            + ' bg-gradient-to-r from-orange-700 to-yellow-600 text-xl'
+            }
+          >
+            <span>Total: R$</span>
+            { data.totalPrice && data.totalPrice.replace('.', ',') }
+          </p>
         </div>
       </div>
     </div>

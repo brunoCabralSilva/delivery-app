@@ -39,7 +39,7 @@
     "eslint-config-trybe-backend": "1.0.4",
     "eslint-plugin-sonarjs": "^0.16.0",
     "mocha": "9.2.2",
-    "nodemon": "2.0.15",
+    "nodemon": "^2.0.20",
     "nyc": "15.1.0",
     "sequelize-cli": "6.4.1",
     "sinon": "13.0.1"
