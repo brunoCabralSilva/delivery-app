@@ -56,7 +56,7 @@ export default function SellerDetails() {
 
   return (
     <div>
-      <Nav />
+      <Nav page="" valuePrice={ 0 } />
       <div className="">
         <div className="w-screen grid grid-cols-5 gap-2 p-3">
           <div

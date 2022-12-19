@@ -24,7 +24,6 @@ export default function Carousel({ list, data }) {
       loop="true"
       autoplay={ { delay: data.time } }
       direction={ data.direction }
-      reverseDirection={ data.reverse }
     >
       {
         list.map((endpoint, index) => (
@@ -42,6 +41,5 @@ Carousel.propTypes = {
   data: PropTypes.shape({
     direction: PropTypes.string,
     time: PropTypes.string,
-    reverse: PropTypes.string,
   }).isRequired,
 };

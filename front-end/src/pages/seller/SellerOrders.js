@@ -41,7 +41,7 @@ export default function SellerOrders() {
 
   return (
     <div>
-      <Nav />
+      <Nav page="" valuePrice={ 0 } />
       <div className="flex flex-wrap">
         {
           sales.length > 0 && sales.map((product, index) => (

@@ -81,7 +81,7 @@ export default function CustomerCheckout() {
 
   return (
     <div>
-      <Nav />
+      <Nav page="" valuePrice={ 0 } />
       <table className="mt-10">
         <thead>
           <tr className="w-screen grid grid-cols-6 gap-2 p-3">

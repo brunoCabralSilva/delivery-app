@@ -50,7 +50,7 @@ export default function CustomerDetails() {
 
   return (
     <div>
-      <Nav />
+      <Nav page="" valuePrice={ 0 } />
       <div>
         <div className="w-screen grid grid-cols-5 gap-2 p-3">
           <div
