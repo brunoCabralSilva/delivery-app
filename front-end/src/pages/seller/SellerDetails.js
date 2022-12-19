@@ -51,7 +51,7 @@ export default function SellerDetails() {
   };
 
   const colorCell = 'font-bold text-white rounded flex'
-  + ' items-center flex justify-center bg-gradi'
+  + ' items-center flex-col justify-center bg-gradi'
   + 'ent-to-r px-5 py-2 from-orange-700 to-yellow-600';
 
   return (
@@ -63,8 +63,11 @@ export default function SellerDetails() {
             className={ colorCell }
             data-testid="seller_order_details__element-order-details-label-order-id"
           >
-            Id do Pedido: 000
-            { data.id }
+            Id do Pedido:
+            <span>
+              000
+              { data.id }
+            </span>
           </div>
           <div
             className={ colorCell }
@@ -87,7 +90,7 @@ export default function SellerDetails() {
             onClick={ () => updateStatus(PREPARE) }
             data-testid="seller_order_details__button-preparing-check"
           >
-            PREPARAR PEDIDO
+            Preparar Pedido
           </button>
           <button
             className={ colorCell }
@@ -96,7 +99,7 @@ export default function SellerDetails() {
             onClick={ () => updateStatus(TRANSIT) }
             data-testid="seller_order_details__button-dispatch-check"
           >
-            SAIU PARA A ENTREGA
+            Saiu para a entrega
           </button>
         </div>
         { data.list && <Table list={ data.list } type="seller" /> }

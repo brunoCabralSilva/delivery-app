@@ -118,7 +118,8 @@ export default function Nav({ page, valuePrice }) {
             className={ 'font-bold text-transparent bg-gradient-to-r'
               + ' from-orange-700 to-yellow-600 bg-clip-text'
               + ' hover:from-yellow-600 hover:to-orange-700'
-              + ' transition-colors duration-500' }
+              + ' transition-colors duration-500'
+              + ` ${storage.role === 'seller' && 'ml-8'}` }
           >
             {
               storage.role === 'seller'

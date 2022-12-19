@@ -45,7 +45,7 @@ export default function CustomerDetails() {
   };
 
   const colorCell = 'font-bold text-white rounded flex'
-  + ' items-center flex justify-center bg-gradi'
+  + ' items-center flex-col justify-center bg-gradi'
   + 'ent-to-r px-5 py-2 from-orange-700 to-yellow-600';
 
   return (
@@ -57,8 +57,11 @@ export default function CustomerDetails() {
             className={ colorCell }
             data-testid="customer_order_details__element-order-details-label-order-id"
           >
-            <span>Id do Pedido: 000</span>
-            { data.id }
+            <span>Id do Pedido:</span>
+            <span>
+              000
+              { data.id }
+            </span>
           </div>
           <div
             className={ colorCell }
