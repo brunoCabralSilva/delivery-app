@@ -14,8 +14,8 @@ export default function Login() {
   const VALID_STATUS = 200;
   const history = useHistory();
 
-  const HOST = process.env.REACT_APP_API_HOST || 'localhost';
-  const PROTOCOL = process.env.REACT_APP_PROTOCOL || 'http';
+  const HOST = process.env.REACT_APP_API_HOST;
+  const PROTOCOL = process.env.REACT_APP_PROTOCOL;
   const linkUser = `${PROTOCOL}://${HOST}`;
 
   useEffect(() => {
