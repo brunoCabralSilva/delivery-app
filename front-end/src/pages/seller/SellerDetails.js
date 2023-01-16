@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import Nav from '../../components/Nav';
 import Table from '../../components/Table';
+import fetch from '../../connection';
 
 export default function SellerDetails() {
   const [data, setData] = useState({});
@@ -14,7 +15,7 @@ export default function SellerDetails() {
   useEffect(() => {
     try {
       const returnSales = async () => {
-        const listProducts = await axios.get(`http://localhost:3001/sale/${id}`);
+        const listProducts = await axios.get(`${fetch()}/sale/${id}`);
         setSaleStatus(listProducts.data.status);
         setData(listProducts.data);
       };
@@ -26,7 +27,7 @@ export default function SellerDetails() {
 
   const updateStatus = async (status) => {
     try {
-      await axios.post('http://localhost:3001/sale/', { newStatus: status, saleId: id });
+      await axios.post(`${fetch()}/sale/`, { newStatus: status, saleId: id });
       setSaleStatus(status);
     } catch (error) {
       console.log(error.message);

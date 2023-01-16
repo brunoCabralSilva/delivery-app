@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import Carousel from '../components/Carousel';
+import fetch from '../connection';
 
 const background = require('../images/8.jpg');
 const icon = require('../images/play.png');
@@ -29,8 +30,8 @@ export default function Register() {
   const validateUser = async () => {
     try {
       setButton(true);
-      const vUser = await axios.post('http://localhost:3001/register', { name, email, password });
-      const vEmail = await axios.post('http://localhost:3001/login', { email, password });
+      const vUser = await axios.post(`${fetch()}/register`, { name, email, password });
+      const vEmail = await axios.post(`${fetch()}/login`, { email, password });
       if (vUser.status === CREATED_STATUS) {
         setValidation(true);
         history.push('/customer/products');

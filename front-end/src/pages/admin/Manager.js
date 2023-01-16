@@ -3,12 +3,9 @@ import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { FiLogOut } from 'react-icons/fi';
 import TableAdmin from '../../components/TableAdmin';
-
-const HOST = process.env.REACT_APP_API_HOST || 'localhost';
-const PROTOCOL = process.env.REACT_APP_PROTOCOL || 'http';
+import fetch from '../../connection';
 
 const regex = /\S+@\S+\.\S+/;
-const linkUser = `${PROTOCOL}://${HOST}/user`;
 const icon = require('../../images/play.png');
 
 export default function CustomerCheckout() {
@@ -28,7 +25,7 @@ export default function CustomerCheckout() {
     const returnAllUsers = async () => {
       try {
         const rAllUsers = await axios.get(
-          linkUser,
+          `${fetch()}/user`,
           {
             name,
             email,
@@ -50,7 +47,7 @@ export default function CustomerCheckout() {
   const updateUser = async () => {
     try {
       const allUsersReturn = await axios.get(
-        linkUser,
+        `${fetch()}/user`,
         { name, email, password, role },
         { headers: { authorization: userStorage.token } },
       );
@@ -63,7 +60,7 @@ export default function CustomerCheckout() {
   const registerUser = async () => {
     try {
       await axios.post(
-        linkUser,
+        `${fetch()}/user`,
         { name, email, password, role },
         { headers: { authorization: userStorage.token } },
       );

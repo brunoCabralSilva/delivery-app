@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import Nav from '../../components/Nav';
+import fetch from '../../connection';
 
 export default function CustomerCheckout() {
   const [listProducts, setProducts] = useState([]);
@@ -21,8 +22,8 @@ export default function CustomerCheckout() {
     setUser(userStorage);
     const returnSellers = async () => {
       try {
-        const sellers = await axios.get('http://localhost:3001/user/sellers');
-        const returnUserId = await axios.get(`http://localhost:3001/user/${userStorage.email}`);
+        const sellers = await axios.get(`${fetch()}/user/sellers`);
+        const returnUserId = await axios.get(`${fetch()}/user/${userStorage.email}`);
         if (sellers.status === VALID_STATUS) {
           setAllSellers(sellers.data);
           setSeller(sellers.data[0].id);
@@ -58,7 +59,7 @@ export default function CustomerCheckout() {
       window.alert('Necessário inserir um número');
     } else {
       try {
-        const register = await axios.post('http://localhost:3001/customer/order', {
+        const register = await axios.post(`${fetch()}/customer/order`, {
           userId,
           sellerId: seller,
           totalPrice: totalValor().toFixed(2),

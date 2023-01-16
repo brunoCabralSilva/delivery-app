@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Nav from '../components/Nav';
+import fetch from '../connection';
 
 const VALID_STATUS = 200;
 const NUMBER = 1;
@@ -12,7 +13,7 @@ export default function Products() {
   useEffect(() => {
     const returnAllItems = async () => {
       try {
-        const data = await axios.get('http://localhost:3001/customer/products');
+        const data = await axios.get(`${fetch()}/customer/products`);
         if (data.status === VALID_STATUS) {
           const valor = data.data.map((v) => {
             const obj = {

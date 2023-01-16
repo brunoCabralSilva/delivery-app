@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import Nav from '../../components/Nav';
+import fetch from '../../connection';
 
 export default function SellerOrders() {
   const [sales, setSales] = useState([]);
@@ -14,9 +15,9 @@ export default function SellerOrders() {
         history.push('/login');
       }
       try {
-        const returnUserId = await axios.get(`http://localhost:3001/user/${list.email}`);
+        const returnUserId = await axios.get(`${fetch()}/user/${list.email}`);
         const allSales = await axios.post(
-          'http://localhost:3001/seller/sales',
+          `${fetch()}/seller/sales`,
           {
             id: returnUserId.data.id,
           },

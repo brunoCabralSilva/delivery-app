@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
+import fetch from '../connection';
 
 export default function TableAdmin({ index, user, updateUser }) {
   const [userStorage, setUserStorage] = useState('');
@@ -13,7 +14,7 @@ export default function TableAdmin({ index, user, updateUser }) {
   const deleteUser = async (id) => {
     try {
       await axios.delete(
-        `http://localhost:3001/user/${id}`,
+        `${fetch()}/user/${id}`,
         {
           headers: { authorization: userStorage.token },
         },
