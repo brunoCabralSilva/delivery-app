@@ -110,7 +110,7 @@ export default function CustomerCheckout() {
         <div className="flex">
           <img
             src={ icon }
-            alt="icone de fundo"
+            alt="icone de fundo de tela"
             className="z-40 w-20"
           />
           <button
