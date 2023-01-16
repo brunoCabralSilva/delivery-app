@@ -14,12 +14,16 @@ export default function Login() {
   const VALID_STATUS = 200;
   const history = useHistory();
 
+  const HOST = process.env.REACT_APP_API_HOST || 'localhost';
+  const PROTOCOL = process.env.REACT_APP_PROTOCOL || 'http';
+  const linkUser = `${PROTOCOL}://${HOST}`;
+
   useEffect(() => {
     const urlValidation = async () => {
       const user = JSON.parse(localStorage.getItem('user'));
       if (user) {
         const { id } = user;
-        const vOrders = await axios.get(`http://localhost:3001/user/orders/${id}`);
+        const vOrders = await axios.get(`${linkUser}/user/orders/${id}`);
         const { role } = user;
         if (role === 'customer') {
           if (vOrders && vOrders.data.length > 0) {
@@ -46,7 +50,7 @@ export default function Login() {
 
   const validadeEmail = async () => {
     try {
-      const vEmail = await axios.post('http://localhost:3001/login', { email, password });
+      const vEmail = await axios.post(`${linkUser}/login`, { email, password });
       if (vEmail.status === VALID_STATUS) {
         localStorage.setItem('user', JSON.stringify(vEmail.data));
         if (vEmail.data.role === 'customer') {

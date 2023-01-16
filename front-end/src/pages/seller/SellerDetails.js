@@ -54,6 +54,14 @@ export default function SellerDetails() {
   + ' items-center flex-col justify-center bg-gradi'
   + 'ent-to-r px-5 py-2 from-orange-700 to-yellow-600';
 
+  const colorButton = 'border font-bold rounded flex'
+  + ' items-center flex-col justify-center px-5 py-2 '
+  + 'bg-yellow-500 hover:bg-yellow-600 duration-500 transition-colors';
+
+  const disabledColorButton = 'border font-bold rounded flex'
+  + ' items-center flex-col justify-center px-5 py-2 '
+  + 'bg-gray-300 hover:bg-gray-400 duration-500 transition-colors';
+
   return (
     <div>
       <Nav page="" valuePrice={ 0 } />
@@ -84,7 +92,7 @@ export default function SellerDetails() {
             { saleStatus }
           </div>
           <button
-            className={ colorCell }
+            className={ disablePrepare() ? disabledColorButton : colorButton }
             type="button"
             disabled={ disablePrepare() }
             onClick={ () => updateStatus(PREPARE) }
@@ -93,7 +101,7 @@ export default function SellerDetails() {
             Preparar Pedido
           </button>
           <button
-            className={ colorCell }
+            className={ disableDelivery() ? disabledColorButton : colorButton }
             type="button"
             disabled={ disableDelivery() }
             onClick={ () => updateStatus(TRANSIT) }

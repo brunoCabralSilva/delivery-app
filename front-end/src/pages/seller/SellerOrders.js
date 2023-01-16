@@ -53,6 +53,7 @@ export default function SellerOrders() {
                 className={
                   'w-full bg-gradient-to-r from-orange-700 to-yellow-600'
                   + ' text-white font-bold p-5 rounded'
+                  + ' border-4 border-white hover:border-yellow-500'
                 }
                 type="button"
                 onClick={

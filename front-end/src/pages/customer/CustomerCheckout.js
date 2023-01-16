@@ -163,22 +163,28 @@ export default function CustomerCheckout() {
             ))
           }
         </select>
-        <input
-          value={ adress }
-          className="border py-2 px-2 mx-1 text-center col-span-2"
-          placeholder="Endereço"
-          onChange={ (e) => setAdress(e.target.value) }
-          type="text"
-          data-testid="customer_checkout__input-address"
-        />
-        <input
-          type="number"
-          className="border py-2 px-2 text-center"
-          placeholder="Número"
-          value={ numberAdress }
-          onChange={ (e) => setNumberAdress(e.target.value) }
-          data-testid="customer_checkout__input-address-number"
-        />
+        <div className="border flex items-center col-span-2">
+          <span className="w-3/12 flex justify-center">Endereço:</span>
+          <input
+            value={ adress }
+            className="w-9/12 py-2 px-2 mx-1 text-center col-span-2"
+            placeholder=""
+            onChange={ (e) => setAdress(e.target.value) }
+            type="text"
+            data-testid="customer_checkout__input-address"
+          />
+        </div>
+        <div className="border flex items-center">
+          <span className="w-2/12 flex justify-center">Nº</span>
+          <input
+            type="number"
+            className="w-10/12 py-2 px-2 text-center"
+            placeholder="Número"
+            value={ numberAdress }
+            onChange={ (e) => setNumberAdress(e.target.value) }
+            data-testid="customer_checkout__input-address-number"
+          />
+        </div>
         <div
           data0-testid="customer_checkout__element-order-total-price"
           className="flex justify-center items-center border mx-1"

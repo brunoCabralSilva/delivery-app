@@ -4,8 +4,11 @@ import { useHistory } from 'react-router-dom';
 import { FiLogOut } from 'react-icons/fi';
 import TableAdmin from '../../components/TableAdmin';
 
+const HOST = process.env.REACT_APP_API_HOST || 'localhost';
+const PROTOCOL = process.env.REACT_APP_PROTOCOL || 'http';
+
 const regex = /\S+@\S+\.\S+/;
-const linkUser = 'http://localhost:3001/user';
+const linkUser = `${PROTOCOL}://${HOST}/user`;
 const icon = require('../../images/play.png');
 
 export default function CustomerCheckout() {

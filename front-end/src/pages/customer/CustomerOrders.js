@@ -37,7 +37,8 @@ export default function CustomerOrders() {
               <button
                 className={
                   'w-full bg-gradient-to-r from-orange-700 to-yellow-600'
-                  + ' text-white font-bold p-5 grid grid-cols-3 rounded'
+                  + ' text-white font-bold p-5 grid grid-cols-3 rounded h-40'
+                  + ' border-4 border-white hover:border-yellow-500'
                 }
                 type="button"
                 onClick={ () => history.push(`./orders/${product.id}`) }
@@ -58,7 +59,7 @@ export default function CustomerOrders() {
                 <div
                   className={
                     'h-full flex flex-col items-center'
-                    + ' justify-center border p-10 rounded'
+                    + ' justify-center border rounded'
                   }
                   data-testid={ `customer_orders__element-delivery-status-${index + 1}` }
                 >

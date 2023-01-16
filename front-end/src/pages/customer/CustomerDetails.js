@@ -48,6 +48,14 @@ export default function CustomerDetails() {
   + ' items-center flex-col justify-center bg-gradi'
   + 'ent-to-r px-5 py-2 from-orange-700 to-yellow-600';
 
+  const colorButton = 'border border-orange-500 font-bold rounded flex'
+  + ' items-center flex-col justify-center px-5 py-2 '
+  + 'bg-yellow-500 hover:bg-yellow-600 duration-500 transition-colors';
+
+  const disabledColorButton = 'border font-bold rounded flex'
+  + ' items-center flex-col justify-center px-5 py-2 '
+  + 'bg-gray-300 hover:bg-gray-400 duration-500 transition-colors';
+
   return (
     <div>
       <Nav page="" valuePrice={ 0 } />
@@ -90,9 +98,12 @@ export default function CustomerDetails() {
             onClick={ () => updateStatus('Entregue') }
             data-testid="customer_order_details__button-delivery-check"
             disabled={ buttonControl() }
-            className={ colorCell }
+            className={ buttonControl() ? disabledColorButton : colorButton }
           >
-            Marcar como entregue
+            {
+              saleStatus !== 'Entregue'
+                ? 'Marcar como entregue' : 'Entregue'
+            }
           </button>
         </div>
         <div className="flex justify-center w-full">
