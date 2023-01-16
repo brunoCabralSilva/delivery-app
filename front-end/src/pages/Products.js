@@ -113,7 +113,7 @@ export default function Products() {
                 <img
                   data-testid={ `customer_products__img-card-bg-image-${list.id}` }
                   className="h-52"
-                  src={ list.urlImage }
+                  src={ `${fetch()}${list.urlImage}` }
                   alt={ `Imagem do produto ${list.id}` }
                 />
               </div>
