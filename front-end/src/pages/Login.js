@@ -59,7 +59,7 @@ export default function Login() {
         }
       }
     } catch (error) {
-      setMessageInvalid('Invalid E-mail');
+      setMessageInvalid('Invalid E-mail Or Password');
       const numberTime = 2000;
       setTimeout(() => {
         setMessageInvalid('');
