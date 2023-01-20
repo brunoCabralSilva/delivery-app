@@ -140,7 +140,7 @@ export default function Products() {
                   -
                 </button>
                 <input
-                  type="text"
+                  type="number"
                   className="w-2/3 px-3 py-1 border text-black text-center"
                   data-testid={ `customer_products__input-card-quantity-${list.id}` }
                   value={ listProducts[index].quant }
