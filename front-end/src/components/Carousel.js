@@ -10,7 +10,7 @@ export default function Carousel({ list, data }) {
     const link = require(`../images/${endpoint}.jpg`);
     return (
       <img
-        className="object-cover h-full w-full"
+        className="object-cover h-full w-full opacity-90"
         src={ link }
         alt="imagem de comida"
       />
