@@ -89,35 +89,35 @@ export default function Login() {
         <div className="row-span-2 col-span-1 gap-2 h-full w-full">
           <Carousel
             className="h-full w-full"
-            list={ ['1', '2', '3', '4', '5'] }
+            list={ ['1', '2', '3'] }
             data={ { time: '3500', direction: 'vertical', reverse: true } }
           />
         </div>
         <div className="row-span-1 col-span-2 gap-2 h-full w-full">
           <Carousel
             className="h-full w-full"
-            list={ ['6', '9', '8', '7', '10'] }
+            list={ ['4', '5', '6'] }
             data={ { time: '6000', direction: 'horizontal', reverse: false } }
           />
         </div>
         <div className="row-span-1 col-span-1 gap-2 h-full w-full">
           <Carousel
             className="h-full w-full"
-            list={ ['15', '14', '13', '12', '11'] }
+            list={ ['7', '8', '9'] }
             data={ { time: '7000', direction: 'vertical', reverse: false } }
           />
         </div>
         <div className="row-span-1 col-span-1 gap-2 h-full w-full">
           <Carousel
             className="h-full w-full"
-            list={ ['16', '17', '18', '19', '20'] }
+            list={ ['10', '11', '12'] }
             data={ { time: '4500', direction: 'horizontal', reverse: false } }
           />
         </div>
         <div className="row-span-1 col-span-2 gap-2 h-full w-full">
           <Carousel
             className="h-full w-full"
-            list={ ['21', '22', '23', '24'] }
+            list={ ['13', '14', '15'] }
             data={ { time: '4000', direction: 'horizontal', reverse: false } }
           />
         </div>
@@ -197,9 +197,9 @@ export default function Login() {
           <button
             type="button"
             className={
-              'p-1 m-1 w-full z-30 hover:font-bold duration-1000'
+              'p-1 m-1 w-full z-30 bg-black/30 font-bold duration-1000 text-white'
               + ' hover:bg-gradient-to-r hover:from-orange-700 hover:to-yellow-600'
-              + ' transition-all text-black hover:text-white'
+              + ' transition-all hover:text-white'
             }
             data-testid="common_login__button-register"
             onClick={ () => history.push('/register') }
