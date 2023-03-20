@@ -52,35 +52,35 @@ export default function Register() {
         <div className="row-span-2 col-span-1 gap-2 h-full w-full">
           <Carousel
             className="h-full w-full"
-            list={ ['1', '2', '3', '4', '5'] }
+            list={ ['1', '2', '3'] }
             data={ { time: '3500', direction: 'vertical', reverse: true } }
           />
         </div>
         <div className="row-span-1 col-span-2 gap-2 h-full w-full">
           <Carousel
             className="h-full w-full"
-            list={ ['6', '9', '8', '7', '10'] }
+            list={ ['4', '5', '6'] }
             data={ { time: '6000', direction: 'horizontal', reverse: false } }
           />
         </div>
         <div className="row-span-1 col-span-1 gap-2 h-full w-full">
           <Carousel
             className="h-full w-full"
-            list={ ['15', '14', '13', '12', '11'] }
+            list={ ['7', '8', '9'] }
             data={ { time: '7000', direction: 'vertical', reverse: false } }
           />
         </div>
         <div className="row-span-1 col-span-1 gap-2 h-full w-full">
           <Carousel
             className="h-full w-full"
-            list={ ['16', '17', '18', '19', '20'] }
+            list={ ['10', '11', '12'] }
             data={ { time: '4500', direction: 'horizontal', reverse: false } }
           />
         </div>
         <div className="row-span-1 col-span-2 gap-2 h-full w-full">
           <Carousel
             className="h-full w-full"
-            list={ ['21', '22', '23', '24'] }
+            list={ ['13', '14', '15'] }
             data={ { time: '4000', direction: 'horizontal', reverse: false } }
           />
         </div>
